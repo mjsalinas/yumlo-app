@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import { Card } from "react-native-ui-lib";
+import { Button, Card, Image } from "react-native-ui-lib";
 import { LinearGradient } from "expo-linear-gradient";
-
+import Icon from "react-native-vector-icons/AntDesign";
 const Dashboard = () => {
   const styles = StyleSheet.create({
     mainTitle: {
@@ -70,7 +70,6 @@ const Dashboard = () => {
           height: "100%",
         }}
       />
-
       <View
         name="header"
         style={{
@@ -95,7 +94,6 @@ const Dashboard = () => {
           style={styles.card}
           onPress={() => console.log("pressed")}
         >
-        
           <Card.Section
             content={[
               {
@@ -113,7 +111,11 @@ const Dashboard = () => {
       </View>
       <View style={styles.cardContainer}>
         <View>
-          <Text style={styles.titleText}>Resumen de Actividad</Text>
+          <Text style={styles.titleText}>
+            <Icon name="bars" size={20}>
+              Resumen de Actividad
+            </Icon>
+          </Text>
         </View>
         <View style={styles.cardsHolder}>
           <View style={styles.cardColumn}>
@@ -162,16 +164,19 @@ const Dashboard = () => {
             <Card
               backgroundColor="#2ABB97"
               onPress={() => console.log("pressed")}
-              style={{ backgroundColor: "#F6EBE4",
-              shadowColor: "black",
-              shadowOffset: {
-                width: 10,
-                height: 10,
-              },
-              shadowRadius: "15",
-              shadowOpacity: "0.2",
-              elevation: 15,
-              width: "100%", height: "30%" }}
+              style={{
+                backgroundColor: "#F6EBE4",
+                shadowColor: "black",
+                shadowOffset: {
+                  width: 10,
+                  height: 10,
+                },
+                shadowRadius: "15",
+                shadowOpacity: "0.2",
+                elevation: 15,
+                width: "100%",
+                height: "30%",
+              }}
             >
               <Card.Section
                 content={[
@@ -183,16 +188,19 @@ const Dashboard = () => {
             <Card
               backgroundColor="#A9664C"
               onPress={() => console.log("pressed")}
-              style={{ backgroundColor: "#F6EBE4",
-              shadowColor: "black",
-              shadowOffset: {
-                width: 10,
-                height: 10,
-              },
-              shadowRadius: "15",
-              shadowOpacity: "0.2",
-              elevation: 15,
-              height: "60%", marginTop: "10%" }}
+              style={{
+                backgroundColor: "#F6EBE4",
+                shadowColor: "black",
+                shadowOffset: {
+                  width: 10,
+                  height: 10,
+                },
+                shadowRadius: "15",
+                shadowOpacity: "0.2",
+                elevation: 15,
+                height: "60%",
+                marginTop: "10%",
+              }}
             >
               <Card.Section
                 content={[
@@ -208,11 +216,43 @@ const Dashboard = () => {
       <View
         style={{
           flexDirection: "row",
-          backgroundColor: "green",
           flex: 0.2,
           padding: 5,
         }}
-      ></View>
+      >
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Button
+            style={{
+              backgroundColor: "#F6EBE4",
+              height: 60,
+              borderRadius: 400 / 2,
+            }}
+          >
+            <Icon name="search1" size={20} />
+          </Button>
+          <View
+           style={{
+            flexDirection: "row",
+          }}>
+            <Image
+              source={require("../../../../assets/user.png")}
+              style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
+            />
+            <Image
+              source={require("../../../../assets/user.png")}
+              style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
+            />
+            <Image
+              source={require("../../../../assets/user.png")}
+              style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
+            />
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
