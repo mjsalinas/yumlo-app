@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React from "react";
 import { Button, Card, Image } from "react-native-ui-lib";
 import { LinearGradient } from "expo-linear-gradient";
@@ -213,7 +213,7 @@ const Dashboard = () => {
         </View>
       </View>
 
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           flex: 0.2,
@@ -252,6 +252,29 @@ const Dashboard = () => {
             />
           </View>
         </View>
+      </View> */}
+      <View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={{ marginTop: 30 }}
+        >
+          <View
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              height: 66,
+              width: 66,
+              borderRadius: 50,
+            }}
+          >
+            <Image
+              source={require("../../../../assets/user.png")}
+              style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
+            />
+          </View>
+          
+        </ScrollView>
       </View>
     </View>
   );

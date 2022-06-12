@@ -3,7 +3,7 @@ import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button, Image, TextField } from "react-native-ui-lib";
 
-const Login = () => {
+const Login = ({navigation}) => {
   const styles = StyleSheet.create({
     input: {
       alignItems: "center",
@@ -85,10 +85,10 @@ const Login = () => {
           padding: 5,
         }}
       >
-        <Button style={styles.button} onPress={() => {}}>
+        <Button style={styles.button} onPress={() => navigation.navigate("Dashboard")}>
           <Text style={{ color: "white", fontWeight: "bold" }}>Iniciar</Text>
         </Button>
-        <Button style={styles.button} onPress={() => {}}>
+        <Button style={styles.button} onPress={() => navigation.navigate("Registro")}>
           <Text style={{ color: "white", fontWeight: "bold" }}>
             Registrarme
           </Text>

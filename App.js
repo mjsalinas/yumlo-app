@@ -15,8 +15,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         {/* anadir boton para home  */}
-        <Stack.Screen name="Registro" component={Registro} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Registro" component={Registro} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Pacientes" component={pacientes} />
       </Stack.Navigator>
