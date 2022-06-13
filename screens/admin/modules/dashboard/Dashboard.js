@@ -1,58 +1,10 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
 import React from "react";
-import { Button, Card, Image } from "react-native-ui-lib";
+import { View, Text, ScrollView } from "react-native";
+import { Card, Image } from "react-native-ui-lib";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/AntDesign";
+import { styles } from "./Settings";
 const Dashboard = () => {
-  const styles = StyleSheet.create({
-    mainTitle: {
-      fontSize: 35,
-      fontWeight: "bold",
-      color: "white",
-    },
-    titleText: {
-      fontSize: 20,
-      fontWeight: "bold",
-      padding: 10,
-      color: "white",
-    },
-    cardContainer: {
-      flexDirection: "column",
-      flex: 0.5,
-      flexWrap: "wrap",
-      alignContent: "space-between",
-    },
-    cardsHolder: {
-      flexDirection: "row",
-      flex: 1,
-      alignContent: "space-between",
-    },
-    cardColumn: {
-      flexDirection: "column",
-      flex: 0.5,
-      flexWrap: "wrap",
-      alignContent: "space-between",
-      padding: 5,
-    },
-    cardSectionContent: {
-      padding: 10,
-      flex: 1,
-      flexWrap: "wrap",
-      fontSize: 35,
-    },
-    card: {
-      backgroundColor: "#b6d885",
-      shadowColor: "black",
-      shadowOffset: {
-        width: 10,
-        height: 10,
-      },
-      shadowRadius: "15",
-      shadowOpacity: "0.2",
-      elevation: 15,
-    },
-  });
-
   return (
     <View
       style={{
@@ -86,7 +38,7 @@ const Dashboard = () => {
           }}
         >
           <Text style={styles.mainTitle}>Hola Maria</Text>
-          <Text >6 asesorias pendientes</Text>
+          <Text>6 asesorias pendientes</Text>
         </View>
 
         <Card
@@ -222,47 +174,6 @@ const Dashboard = () => {
           </View>
         </View>
       </View>
-
-      {/* <View
-        style={{
-          flexDirection: "row",
-          flex: 0.2,
-          padding: 5,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-          }}
-        >
-          <Button
-            style={{
-              backgroundColor: "#F6EBE4",
-              height: 60,
-              borderRadius: 400 / 2,
-            }}
-          >
-            <Icon name="search1" size={20} />
-          </Button>
-          <View
-           style={{
-            flexDirection: "row",
-          }}>
-            <Image
-              source={require("../../../../assets/user.png")}
-              style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
-            />
-            <Image
-              source={require("../../../../assets/user.png")}
-              style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
-            />
-            <Image
-              source={require("../../../../assets/user.png")}
-              style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
-            />
-          </View>
-        </View>
-      </View> */}
       <View>
         <ScrollView
           horizontal

@@ -1,15 +1,12 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import _ from "lodash";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Picker,
   ExpandableSection,
   TextField,
-  Colors,
-  Card,
 } from "react-native-ui-lib";
 import Icon from "react-native-vector-icons/Entypo";
-import { greaterThan } from "react-native-reanimated";
 
 const Configuraciones = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -70,13 +67,6 @@ const Configuraciones = () => {
       paddingTop: 10,
     },
   });
-  //   useEffect(() => {
-  //     getConfiguracionesChevron();
-  //   }, [configuracionesIsExpanded]);
-
-  //   useEffect(() => {
-  //     getConfiguracionesDetallesChevron();
-  //   }, [configuracionesDetallesIsExpanded]);
 
   const handleOnExpandConfiguraciones = () => {
     setConfiguracionesIsExpanded(!configuracionesIsExpanded);
@@ -94,25 +84,6 @@ const Configuraciones = () => {
     } else {
       setConfiguracionesDetalleChevron("chevron-up");
     }
-  };
-
-  const getConfiguracionesChevron = () => {
-    if (configuracionesIsExpanded) {
-      setConfiguracionesChevron("chevron-down");
-    } else {
-      setConfiguracionesChevron("chevron-up");
-    }
-
-    return;
-  };
-  const getConfiguracionesDetallesChevron = () => {
-    if (configuracionesDetallesIsExpanded) {
-      setConfiguracionesDetalleChevron("chevron-down");
-    } else {
-      setConfiguracionesDetalleChevron("chevron-up");
-    }
-
-    return;
   };
 
   const getHeaderElement = (title) => {
