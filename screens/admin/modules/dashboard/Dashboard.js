@@ -6,13 +6,15 @@ import Icon from "react-native-vector-icons/AntDesign";
 const Dashboard = () => {
   const styles = StyleSheet.create({
     mainTitle: {
-      fontSize: 30,
+      fontSize: 35,
       fontWeight: "bold",
+      color: "white",
     },
     titleText: {
       fontSize: 20,
       fontWeight: "bold",
-      padding: 5,
+      padding: 10,
+      color: "white",
     },
     cardContainer: {
       flexDirection: "column",
@@ -39,7 +41,7 @@ const Dashboard = () => {
       fontSize: 35,
     },
     card: {
-      backgroundColor: "#F6EBE4",
+      backgroundColor: "#b6d885",
       shadowColor: "black",
       shadowOffset: {
         width: 10,
@@ -61,7 +63,7 @@ const Dashboard = () => {
     >
       <LinearGradient
         // Background Linear Gradient
-        colors={["#dfdcc0", "#afd479"]}
+        colors={["#afd479", "#799f0c"]}
         style={{
           position: "absolute",
           left: 0,
@@ -84,7 +86,7 @@ const Dashboard = () => {
           }}
         >
           <Text style={styles.mainTitle}>Hola Maria</Text>
-          <Text>6 asesorias pendientes</Text>
+          <Text >6 asesorias pendientes</Text>
         </View>
 
         <Card
@@ -98,11 +100,13 @@ const Dashboard = () => {
             content={[
               {
                 text: "Retroalimentaciones Recientes",
-                text70: true,
+
                 $textDefault: true,
+                white: true,
               },
               {
                 text: "Miguel añadió un comentario...",
+                white: true,
               },
             ]}
             style={styles.cardSectionContent}
@@ -124,18 +128,20 @@ const Dashboard = () => {
               center
               flex
               width="100%"
-              height="60%"
+              height="65%"
               style={styles.card}
             >
               <Card.Section
-                content={[{ text: "Asesorias Completas" }]}
+                content={[
+                  { text: "Asesorias Completas", white: true, text70: true },
+                ]}
                 style={styles.cardSectionContent}
               />
             </Card>
             <Card
               onPress={() => console.log("pressed")}
               style={{
-                backgroundColor: "#F6EBE4",
+                backgroundColor: "#b6d885",
                 shadowColor: "black",
                 shadowOffset: {
                   width: 10,
@@ -144,7 +150,7 @@ const Dashboard = () => {
                 shadowRadius: "15",
                 shadowOpacity: "0.2",
                 elevation: 15,
-                height: "30%",
+                height: "35%",
                 marginTop: "10%",
               }}
             >
@@ -153,7 +159,7 @@ const Dashboard = () => {
                   {
                     text: "Total de Asesorias",
                     text70: true,
-                    $textDefault: true,
+                    white: true,
                   },
                 ]}
                 style={styles.cardSectionContent}
@@ -162,10 +168,9 @@ const Dashboard = () => {
           </View>
           <View style={styles.cardColumn}>
             <Card
-              backgroundColor="#2ABB97"
               onPress={() => console.log("pressed")}
               style={{
-                backgroundColor: "#F6EBE4",
+                backgroundColor: "#b6d885",
                 shadowColor: "black",
                 shadowOffset: {
                   width: 10,
@@ -179,17 +184,25 @@ const Dashboard = () => {
               }}
             >
               <Card.Section
+                center
+                flex
                 content={[
-                  { text: "En Curso", text70: true, $textDefault: true },
+                  {
+                    text: "Total de Asesorias",
+                    white: true,
+                  },
                 ]}
                 style={styles.cardSectionContent}
-              />
+              ></Card.Section>
             </Card>
             <Card
-              backgroundColor="#A9664C"
               onPress={() => console.log("pressed")}
+              center
+              flex
+              width="100%"
+              height="65%"
               style={{
-                backgroundColor: "#F6EBE4",
+                backgroundColor: "#b6d885",
                 shadowColor: "black",
                 shadowOffset: {
                   width: 10,
@@ -198,14 +211,11 @@ const Dashboard = () => {
                 shadowRadius: "15",
                 shadowOpacity: "0.2",
                 elevation: 15,
-                height: "60%",
                 marginTop: "10%",
               }}
             >
               <Card.Section
-                content={[
-                  { text: "Pendientes", text70: true, $textDefault: true },
-                ]}
+                content={[{ text: "Pendientes", text70: true, white: true }]}
                 style={styles.cardSectionContent}
               />
             </Card>
@@ -273,7 +283,6 @@ const Dashboard = () => {
               style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
             />
           </View>
-          
         </ScrollView>
       </View>
     </View>

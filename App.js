@@ -6,19 +6,19 @@ import "react-native-gesture-handler";
 import Login from "./screens/Login";
 import Registro from "./screens/Registro";
 import Dashboard from "./screens/admin/modules/dashboard/Dashboard";
-import pacientes from "./screens/admin/modules/masters/Pacientes";
+import Configuraciones from "./screens/admin/modules/masters/Configuraciones";
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <Stack.Navigator>
         {/* anadir boton para home  */}
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Registro" component={Registro} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
-        <Stack.Screen name="Pacientes" component={pacientes} />
+        <Stack.Screen name="Configuraciones" component={Configuraciones} />
       </Stack.Navigator>
     </NavigationContainer>
   );

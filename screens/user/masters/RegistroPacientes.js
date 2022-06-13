@@ -1,11 +1,30 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Button, TextField } from "react-native-ui-lib";
+import {
+  Button,
+  MaskedInput,
+  TextField,
+  DateTimePicker,
+} from "react-native-ui-lib";
 import React, { useEffect, useState } from "react";
-import DateTimePicker from "@react-native-community/datetimepicker";
 
 const RegistroPacientes = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
+
+  const [phoneNumber, setPhoneNumber] = useState(null);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    console.warn("A date has been picked: ", date);
+    hideDatePicker();
+  };
 
   const styles = StyleSheet.create({
     input: {
@@ -25,6 +44,13 @@ const RegistroPacientes = ({ navigation }) => {
       height: 50,
       borderRadius: 15,
       backgroundColor: "#afd479",
+      marginTop: 10,
+    },
+    DatePicker: {
+      height: 50,
+      borderRadius: 15,
+      backgroundColor: "gray",
+      color: "white",
       marginTop: 10,
     },
   });
@@ -63,32 +89,35 @@ const RegistroPacientes = ({ navigation }) => {
           <View
             style={{
               flexDirection: "column",
+              flex: 1,
               padding: 5,
-              textAlign: "center",
             }}
           >
-            <Text style={{ color: "gray", fontSize: 16 }}>
-              {" "}
-              Fecha de Nacimiento{" "}
-            </Text>
-            {/* <DatePicker
-            defaultDate={new Date()}
-            value={date}
-            onChange={(value) => {
-              console.log(value);
-              setDate(value);
-            }}
-          /> */}
-
             <DateTimePicker
+              title={"Fecha de Nacimiento"}
+              placeholder={"Seleccione"}
+              mode={"date"}
               value={date}
               onChange={(event, date) => {
                 setDate(date);
               }}
             ></DateTimePicker>
+            <View>
+              <Text style={{ color: "gray", fontSize: 17 }}>
+                Numero de Telefono
+              </Text>
+              <MaskedInput
+                maxLength={8}
+                style={{ fontSize: 15 }}
+                ref={phoneNumber}
+                placeholder={"XXXX-XXXX"}
+                keyboardType={"numeric"}
+                onBlur={(ev, val) => {
+                  setPhoneNumber(val);
+                }}
+              />
+            </View>
           </View>
-
-          <TextField placeholder="Telefono" style={styles.input} />
         </View>
         <Button
           style={styles.button}
