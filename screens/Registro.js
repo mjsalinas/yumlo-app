@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { TabController, TabControllerItemProps } from "react-native-ui-lib";
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
-import RegistroPacientes from "./user/masters/RegistroPacientes";
-import RegistroNutricionistas from "./admin/modules/masters/RegistroNutricionistas";
+import RegistroPacientes from "./user/RegistroPacientes";
+import RegistroNutricionistas from "./admin/modules/RegistroNutricionistas";
 
 const Tab = createMaterialTopTabNavigator();
 const tabs = ["Paciente", "Nutricionista"];

@@ -6,8 +6,8 @@ import "react-native-gesture-handler";
 import Login from "./screens/Login";
 import Registro from "./screens/Registro";
 import Dashboard from "./screens/admin/modules/dashboard/Dashboard";
-import Configuraciones from "./screens/admin/modules/masters/Configuraciones";
-import UserDashboard from "./screens/user/dashboard/UserDashboard";
+import Configuraciones from "./screens/admin/modules/Configuraciones";
+import UserDashboard from "./screens/user/UserDashboard";
 import Asesoria from "./screens/user/Asesoria";
 
 const Stack = createStackNavigator();

@@ -118,7 +118,7 @@ const Configuraciones = () => {
                 paddingTop: 5,
               }}
             >
-              <TextField placeholder="Titulo" />
+              <TextField migrate placeholder="Titulo" />
             </View>
 
             <View
@@ -130,7 +130,7 @@ const Configuraciones = () => {
                 paddingTop: 5,
               }}
             >
-              <TextField placeholder="Valor" />
+              <TextField migrate placeholder="Valor" />
             </View>
             <View
               style={{
@@ -165,7 +165,7 @@ const Configuraciones = () => {
                       paddingTop: 5,
                     }}
                   >
-                    <TextField placeholder="Titulo" />
+                    <TextField migrate placeholder="Titulo" />
                   </View>
 
                   <View
@@ -177,7 +177,7 @@ const Configuraciones = () => {
                       paddingTop: 5,
                     }}
                   >
-                    <TextField placeholder="Valor" />
+                    <TextField migrate placeholder="Valor" />
                   </View>
                   <View
                     style={{
@@ -248,7 +248,7 @@ const Configuraciones = () => {
                 paddingTop: 5,
               }}
             >
-              <TextField placeholder="Titulo" />
+              <TextField migrate placeholder="Titulo" />
             </View>
 
             <View
@@ -260,7 +260,7 @@ const Configuraciones = () => {
                 paddingTop: 5,
               }}
             >
-              <TextField placeholder="Valor" />
+              <TextField migrate placeholder="Valor" />
             </View>
             <View
               style={{
@@ -322,7 +322,7 @@ const Configuraciones = () => {
                       paddingTop: 5,
                     }}
                   >
-                    <TextField placeholder="Titulo" />
+                    <TextField migrate placeholder="Titulo" />
                   </View>
 
                   <View
@@ -334,7 +334,7 @@ const Configuraciones = () => {
                       paddingTop: 5,
                     }}
                   >
-                    <TextField placeholder="Valor" />
+                    <TextField migrate placeholder="Valor" />
                   </View>
                   <View
                     style={{

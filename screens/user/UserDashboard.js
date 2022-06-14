@@ -3,42 +3,15 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { Card } from "react-native-ui-lib";
 import { LinearGradient } from "expo-linear-gradient";
-import { styles } from "./Settings";
+import { styles } from "./settings/UserDashboardSettings";
 import { ScrollView } from "react-native-gesture-handler";
 
 const UserDashboard = ({navigation}) => {
   const [asesorias, setAsesorias] = useState([
-    {key:"asesoria1", value:"test"},
-    {key:"asesoria2",value:"test"},
-   { key:"asesoria3",value:"test"},
+    {key:"11231", value:"test"},
+    {key:"33521",value:"test"},
+   { key:"21313",value:"test"},
   ]);
-
-  const onRenderAsesorias = () => {
-    return (
-      <Card
-        flex
-        center
-        style={styles.card}
-        onPress={() => console.log("pressed")}
-      >
-        <Card.Section
-          content={[
-            {
-              text: "Retroalimentaciones Recientes",
-
-              $textDefault: true,
-              white: true,
-            },
-            {
-              text: "Miguel añadió un comentario...",
-              white: true,
-            },
-          ]}
-          style={styles.cardSectionContent}
-        />
-      </Card>
-    );
-  };
 
   return (
     <View

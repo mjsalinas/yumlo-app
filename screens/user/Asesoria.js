@@ -1,19 +1,53 @@
-import { View, Text } from 'react-native'
-import React, {useEffect} from 'react'
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { styles } from "./settings/AsesoriaSettings";
+import PlanAlimenticio from "./PlanAlimenticio";
+import Retroalimentacion from "./Retroalimentacion";
+import DatosSeguimiento from "./DatosSeguimiento";
+import { ScrollView } from "react-native-gesture-handler";
 
-const Asesoria = ({route, navigation}) => {
+const Asesoria = ({ route, navigation }) => {
+  const { option } = route.params;
 
-    const {option} = route.params;
-
-    useEffect (()=>{
-
-        console.log(option)
-    })
   return (
-    <View>
-      <Text>Asesoria</Text>
-    </View>
-  )
-}
+    <View
+      style={{
+        flexDirection: "column",
+        flex: 1,
+        padding: 15,
+        paddingTop: 0,
+      }}
+    >
+      <LinearGradient
+        // Background Linear Gradient
+        colors={["#afd479", "#799f0c"]}
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 0,
+          height: "100%",
+        }}
+      />
+      <Text style={styles.mainTitle}>Asesoria #{option.key}</Text>
+      <Text style={styles.titleText}>Dr {option.value} - 21/05/2022</Text>
 
-export default Asesoria
+      <ScrollView>
+      <View>
+          <DatosSeguimiento></DatosSeguimiento>
+        </View>
+        <View style={{ marginTop: 15 }}>
+          <Retroalimentacion option></Retroalimentacion>
+        </View>
+        <View>
+          <PlanAlimenticio style={{ marginTop: 15 }}></PlanAlimenticio>
+        </View>
+        
+      </ScrollView>
+    </View>
+  );
+};
+
+export default Asesoria;

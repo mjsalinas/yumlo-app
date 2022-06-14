@@ -82,10 +82,10 @@ const RegistroPacientes = ({ navigation }) => {
             textAlign: "center",
           }}
         >
-          <TextField placeholder="Usuario" style={styles.input} />
-          <TextField placeholder="Contraseña" style={styles.input} />
-          <TextField placeholder="Nombre" style={styles.input} />
-          <TextField placeholder="Apellido" style={styles.input} />
+          <TextField migrate placeholder="Usuario" style={styles.input} />
+          <TextField migrate placeholder="Contraseña" style={styles.input} />
+          <TextField migrate placeholder="Nombre" style={styles.input} />
+          <TextField migrate placeholder="Apellido" style={styles.input} />
           <View
             style={{
               flexDirection: "column",

@@ -74,8 +74,8 @@ const Login = ({navigation}) => {
           padding: 5,
         }}
       >
-        <TextField placeholder="Usuario" style={styles.input} />
-        <TextField placeholder="Contraseña" style={styles.input} />
+        <TextField migrate placeholder="Usuario" style={styles.input} />
+        <TextField migrate placeholder="Contraseña" style={styles.input} />
       </View>
 
       <View
