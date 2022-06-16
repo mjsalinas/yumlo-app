@@ -4,7 +4,8 @@ import { Card, Image } from "react-native-ui-lib";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/AntDesign";
 import { styles } from "./Settings";
-const Dashboard = () => {
+const Dashboard = ({route, navigation }) => {
+
   return (
     <View
       style={{

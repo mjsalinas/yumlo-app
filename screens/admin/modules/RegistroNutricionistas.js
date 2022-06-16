@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import Axios from "axios";
 import _ from "lodash";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -11,20 +12,43 @@ import React, { useEffect, useState } from "react";
 // import DateTimePicker from "@react-native-community/datetimepicker";
 
 const RegistroNutricionistas = ({ navigation }) => {
-  const [date, setDate] = useState(new Date());
-  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [usuario, setUsuario] = useState(null);
+  const [contrasena, setContrasena] = useState(null);
+  const [nombre, setNombre] = useState(null);
+  const [apellido, setApellido] = useState(null);
+  const [fechaNacimiento, setFechaNacimiento] = useState(new Date());
+  const [fechaNacimientoFormato, setFechaNacimientoFormato] = useState(
+    new Date()
+  );
+  const [numeroTelefono, setNumeroTelefono] = useState(null);
+  const [colegiacion, setColegiacion] = useState(null);
 
-  const renderPINCode = (value = "") => {
-    return (
-      <View row centerH>
-        {_.times(4, (i) => {
-          return (
-            <View key={i} marginR-s3 center style={styles.pinCodeSquare}>
-              <Text h1>{value[i]}</Text>
-            </View>
-          );
-        })}
-      </View>
+  const handleOnPressRegister = () => {
+    console.log("registerrr");
+    Axios.post("http://192.168.54.1:3000/usuarios", {
+      rol: 2,
+      usuario: usuario,
+      contrasena: contrasena,
+      nombre: nombre,
+      apellido: apellido,
+      fechaNacimiento: fechaNacimientoFormato,
+      telefono: numeroTelefono,
+      colegiacion: colegiacion,
+    }).then((response) => {
+      if (response.status == 200) {
+        navigation.navigate("Main", { isNutricionista: true });
+      }
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      console.log(error.response.data);
+      return;
+    });
+  };
+
+  const onChangeDatePicker = (value) => {
+    setFechaNacimientoFormato(
+      value.toISOString().slice(0, 10).replace("T", " ")
     );
   };
 
@@ -77,10 +101,30 @@ const RegistroNutricionistas = ({ navigation }) => {
             textAlign: "center",
           }}
         >
-          <TextField migrate placeholder="Usuario" style={styles.input} />
-          <TextField migrate placeholder="Contraseña" style={styles.input} />
-          <TextField migrate placeholder="Nombre" style={styles.input} />
-          <TextField migrate placeholder="Apellido" style={styles.input} />
+          <TextField
+            migrate
+            placeholder="Usuario"
+            style={styles.input}
+            onChangeText={(value) => setUsuario(value)}
+          />
+          <TextField
+            migrate
+            placeholder="Contraseña"
+            style={styles.input}
+            onChangeText={(value) => setContrasena(value)}
+          />
+          <TextField
+            migrate
+            placeholder="Nombre"
+            style={styles.input}
+            onChangeText={(value) => setNombre(value)}
+          />
+          <TextField
+            migrate
+            placeholder="Apellido"
+            style={styles.input}
+            onChangeText={(value) => setApellido(value)}
+          />
           <View
             style={{
               flexDirection: "column",
@@ -92,10 +136,8 @@ const RegistroNutricionistas = ({ navigation }) => {
               title={"Fecha de Nacimiento"}
               placeholder={"Seleccione"}
               mode={"date"}
-              value={date}
-              onChange={(event, date) => {
-                setDate(date);
-              }}
+              value={fechaNacimiento}
+              onChange={onChangeDatePicker}
             ></DateTimePicker>
             <View>
               <Text style={{ color: "gray", fontSize: 17 }}>
@@ -104,23 +146,24 @@ const RegistroNutricionistas = ({ navigation }) => {
               <MaskedInput
                 maxLength={8}
                 style={{ fontSize: 15 }}
-                ref={phoneNumber}
                 placeholder={"XXXX-XXXX"}
                 keyboardType={"numeric"}
-                onBlur={(ev, val) => {
-                  setPhoneNumber(val);
+                onChangeText={value => {
+                  setNumeroTelefono(value);
                 }}
               />
             </View>
           </View>
           <View style={{ marginTop: 20 }}>
-            <TextField migrate placeholder="No. Colegiacion" style={styles.input} />
+            <TextField
+              migrate
+              placeholder="No. Colegiacion"
+              style={styles.input}
+              onChangeText={(value) => setColegiacion(value)}
+            />
           </View>
         </View>
-        <Button
-          style={styles.button}
-          onPress={() => navigation.navigate("Dashboard")}
-        >
+        <Button style={styles.button} onPress={handleOnPressRegister}>
           <Text style={{ color: "white", fontWeight: "bold" }}>
             Registrarme
           </Text>

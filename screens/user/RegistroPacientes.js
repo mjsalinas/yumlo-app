@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
+import Axios from "axios";
 import { LinearGradient } from "expo-linear-gradient";
 import {
   Button,
@@ -9,10 +10,33 @@ import {
 import React, { useEffect, useState } from "react";
 
 const RegistroPacientes = ({ navigation }) => {
-  const [date, setDate] = useState(new Date());
+  const [usuario, setUsuario] = useState(null);
+  const [contrasena, setContrasena] = useState(null);
+  const [nombre, setNombre] = useState(null);
+  const [apellido, setApellido] = useState(null);
+  const [fechaNacimiento, setFechaNacimiento] = useState(new Date());
+  const [fechaNacimientoFormato, setFechaNacimientoFormato] = useState(new Date());
+  const [numeroTelefono, setNumeroTelefono] = useState(null);
 
-  const [phoneNumber, setPhoneNumber] = useState(null);
+  const handleOnPressRegister = () => {
+    Axios.post("http://192.168.54.1:3000/usuarios", {
+      rol: 1,
+      usuario: usuario,
+      contrasena: contrasena,
+      nombre: nombre,
+      apellido: apellido,
+      fechaNacimiento: fechaNacimientoFormato,
+      telefono: numeroTelefono,
+      colegiacion: null,
+    }).then((response) => {
+      console.log(response);
+    });
+  };
 
+  const onChangeDatePicker = ( value) => {
+    console.log('picker date: ' + value.toISOString().slice(0, 10).replace('T', ' '));
+    setFechaNacimientoFormato(value.toISOString().slice(0, 10).replace('T', ' '));
+  }
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -82,10 +106,30 @@ const RegistroPacientes = ({ navigation }) => {
             textAlign: "center",
           }}
         >
-          <TextField migrate placeholder="Usuario" style={styles.input} />
-          <TextField migrate placeholder="Contraseña" style={styles.input} />
-          <TextField migrate placeholder="Nombre" style={styles.input} />
-          <TextField migrate placeholder="Apellido" style={styles.input} />
+          <TextField
+            migrate
+            placeholder="Usuario"
+            style={styles.input}
+            onChangeText={(value) => setUsuario(value)}
+          />
+          <TextField
+            migrate
+            placeholder="Contraseña"
+            style={styles.input}
+            onChangeText={(value) => setContrasena(value)}
+          />
+          <TextField
+            migrate
+            placeholder="Nombre"
+            style={styles.input}
+            onChangeText={(value) => setNombre(value)}
+          />
+          <TextField
+            migrate
+            placeholder="Apellido"
+            style={styles.input}
+            onChangeText={(value) => setApellido(value)}
+          />
           <View
             style={{
               flexDirection: "column",
@@ -97,10 +141,8 @@ const RegistroPacientes = ({ navigation }) => {
               title={"Fecha de Nacimiento"}
               placeholder={"Seleccione"}
               mode={"date"}
-              value={date}
-              onChange={(event, date) => {
-                setDate(date);
-              }}
+              value={fechaNacimiento}
+              onChange={onChangeDatePicker}
             ></DateTimePicker>
             <View>
               <Text style={{ color: "gray", fontSize: 17 }}>
@@ -109,11 +151,10 @@ const RegistroPacientes = ({ navigation }) => {
               <MaskedInput
                 maxLength={8}
                 style={{ fontSize: 15 }}
-                ref={phoneNumber}
                 placeholder={"XXXX-XXXX"}
                 keyboardType={"numeric"}
-                onBlur={(ev, val) => {
-                  setPhoneNumber(val);
+                onChangeText={value => {
+                  setNumeroTelefono(value);
                 }}
               />
             </View>
@@ -121,7 +162,7 @@ const RegistroPacientes = ({ navigation }) => {
         </View>
         <Button
           style={styles.button}
-          onPress={() => navigation.navigate("Dashboard")}
+          onPress={handleOnPressRegister}
         >
           <Text style={{ color: "white", fontWeight: "bold" }}>
             Registrarme

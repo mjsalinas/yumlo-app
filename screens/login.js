@@ -1,9 +1,22 @@
+import { useDispatch, useSelector } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { bindActionCreators } from "redux";
+import Axios from "axios";
+import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button, Image, TextField } from "react-native-ui-lib";
+import { selectUser, setUser } from "../src/Reducer";
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    console.log(user)
+  })
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
+
   const styles = StyleSheet.create({
     input: {
       alignItems: "center",
@@ -24,6 +37,32 @@ const Login = ({navigation}) => {
       marginTop: 10,
     },
   });
+
+  const handleOnPressLogin = () => {
+    //login api
+    Axios.post("http://192.168.54.1:3000/login", {
+      usuario: usuario,
+      contrasena: password,
+    })
+      .then((response) => {
+        if (response.data[0].rol == "nutricionista") {
+          dispatch(setUser(response.data[0]));
+          navigation.navigate("Main", {
+            isNutricionista: true,
+          });
+        } else {
+          dispatch(setUser(response.data[0]));
+          navigation.navigate("Main", {
+            isNutricionista: false,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        console.log(error.response.data);
+        return;
+      });
+  };
 
   return (
     <View
@@ -74,8 +113,18 @@ const Login = ({navigation}) => {
           padding: 5,
         }}
       >
-        <TextField migrate placeholder="Usuario" style={styles.input} />
-        <TextField migrate placeholder="Contraseña" style={styles.input} />
+        <TextField
+          migrate
+          placeholder="Usuario"
+          style={styles.input}
+          onChangeText={(value) => setUsuario(value)}
+        />
+        <TextField
+          migrate
+          placeholder="Contraseña"
+          style={styles.input}
+          onChangeText={(value) => setPassword(value)}
+        />
       </View>
 
       <View
@@ -85,10 +134,18 @@ const Login = ({navigation}) => {
           padding: 5,
         }}
       >
-        <Button style={styles.button} onPress={() => navigation.navigate("Dashboard")}>
+        <Button
+          style={styles.button}
+          onPress={() => {
+            handleOnPressLogin();
+          }}
+        >
           <Text style={{ color: "white", fontWeight: "bold" }}>Iniciar</Text>
         </Button>
-        <Button style={styles.button} onPress={() => navigation.navigate("Registro")}>
+        <Button
+          style={styles.button}
+          onPress={() => navigation.navigate("Registro")}
+        >
           <Text style={{ color: "white", fontWeight: "bold" }}>
             Registrarme
           </Text>
@@ -97,5 +154,4 @@ const Login = ({navigation}) => {
     </View>
   );
 };
-
 export default Login;

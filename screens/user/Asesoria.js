@@ -7,6 +7,7 @@ import PlanAlimenticio from "./PlanAlimenticio";
 import Retroalimentacion from "./Retroalimentacion";
 import DatosSeguimiento from "./DatosSeguimiento";
 import { ScrollView } from "react-native-gesture-handler";
+import { StatusBar } from "expo-status-bar";
 
 const Asesoria = ({ route, navigation }) => {
   const { option } = route.params;
@@ -20,6 +21,7 @@ const Asesoria = ({ route, navigation }) => {
         paddingTop: 0,
       }}
     >
+        <StatusBar translucent/>
       <LinearGradient
         // Background Linear Gradient
         colors={["#afd479", "#799f0c"]}

@@ -1,17 +1,20 @@
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { Card } from "react-native-ui-lib";
 import { LinearGradient } from "expo-linear-gradient";
+import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./settings/UserDashboardSettings";
 import { ScrollView } from "react-native-gesture-handler";
+import { selectUser, selectAsesorias } from "../../src/Reducer";
 
-const UserDashboard = ({navigation}) => {
-  const [asesorias, setAsesorias] = useState([
-    {key:"11231", value:"test"},
-    {key:"33521",value:"test"},
-   { key:"21313",value:"test"},
-  ]);
+const UserDashboard = ({ navigation }) => {
+  const user = useSelector(selectUser);
+  const asesorias = useSelector(selectAsesorias);
+
+useEffect(()=>{
+  console.log(asesorias)
+})
 
   return (
     <View
@@ -49,7 +52,7 @@ const UserDashboard = ({navigation}) => {
                 flex
                 center
                 style={styles.card}
-                onPress={() => navigation.navigate("Asesoria", {option})}
+                onPress={() => navigation.navigate("Asesoria", { option })}
               >
                 <Card.Section
                   content={[
