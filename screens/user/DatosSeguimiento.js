@@ -3,8 +3,15 @@ import _ from "lodash";
 import React, { useState } from "react";
 import { Picker, ExpandableSection, TextField } from "react-native-ui-lib";
 import Icon from "react-native-vector-icons/Entypo";
+import { useSelector } from "react-redux";
+import { selectAsesoriaSeleccionada, selectUser } from "../../src/Reducer";
 
 const DatosSeguimiento = () => {
+  const { user, selectedAsesoria } = useSelector(
+    selectUser,
+    selectAsesoriaSeleccionada
+  );
+  const [datosSeguimiento, setDatosSeguimiento] = useState(selectedAsesoria[0].datos_seguimiento);
   const [isExpanded, setIsExpanded] = useState(true);
   const [chevron, setChevron] = useState("chevron-up");
   const [categoryOptions, setCategoryOptions] = useState([

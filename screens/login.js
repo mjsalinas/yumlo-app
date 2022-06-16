@@ -5,17 +5,44 @@ import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button, Image, TextField } from "react-native-ui-lib";
-import { selectUser, setUser } from "../src/Reducer";
+import {
+  selectUser,
+  setUser,
+  setAsesorias,
+  selectAsesorias,
+} from "../src/Reducer";
+import { API } from "../api";
 
 const Login = ({ navigation }) => {
-  const user = useSelector(selectUser);
-  const dispatch = useDispatch();
-
-  useEffect(()=>{
-    console.log(user)
-  })
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
+  const { user, asesorias } = useSelector(selectUser, selectAsesorias);
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   if (user.rol == "nutricionista") {
+  //     Axios.get(API + `/asesoriasNutri/${user.id_usuario}`).then((res) => {
+  //       dispatch(setAsesorias(res.data));
+  //     });
+  //   } else {
+  //     Axios.get(API + `/asesoriasPaciente/${user.id_usuario}`).then((res) => {
+  //       console.log(user.id_usuario)
+  //       dispatch(setAsesorias(res.data));
+  //   });
+  //   }
+  // }, [user]);
+
+  const getAsesorias = (user) => {
+    if (user.rol == "nutricionista") {
+      Axios.get(API + `/asesoriasNutri/${user.id_usuario}`).then((res) => {
+        dispatch(setAsesorias(res.data));
+      });
+    } else {
+      Axios.get(API + `/asesoriasPaciente/${user.id_usuario}`).then((res) => {
+        dispatch(setAsesorias(res.data));
+    });
+    }
+  }
 
   const styles = StyleSheet.create({
     input: {
@@ -47,19 +74,19 @@ const Login = ({ navigation }) => {
       .then((response) => {
         if (response.data[0].rol == "nutricionista") {
           dispatch(setUser(response.data[0]));
+          getAsesorias(response.data[0]);
           navigation.navigate("Main", {
             isNutricionista: true,
           });
         } else {
           dispatch(setUser(response.data[0]));
+          getAsesorias(response.data[0]);
           navigation.navigate("Main", {
             isNutricionista: false,
           });
         }
       })
       .catch((error) => {
-        console.log(error.response.status);
-        console.log(error.response.data);
         return;
       });
   };

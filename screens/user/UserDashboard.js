@@ -6,15 +6,17 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "./settings/UserDashboardSettings";
 import { ScrollView } from "react-native-gesture-handler";
-import { selectUser, selectAsesorias } from "../../src/Reducer";
+import Axios from "axios";
+import {
+  selectUser,
+  selectAsesorias,
+  setSelectedAsesoria,
+} from "../../src/Reducer";
+import { API } from "../../api";
 
 const UserDashboard = ({ navigation }) => {
-  const user = useSelector(selectUser);
-  const asesorias = useSelector(selectAsesorias);
-
-useEffect(()=>{
-  console.log(asesorias)
-})
+  const { user, asesorias } = useSelector(selectUser, selectAsesorias);
+  const dispatch = useDispatch();
 
   return (
     <View
@@ -52,12 +54,22 @@ useEffect(()=>{
                 flex
                 center
                 style={styles.card}
-                onPress={() => navigation.navigate("Asesoria", { option })}
+                onPress={() => {
+                  Axios.get(API + `/asesoria/${option.id_asesoria}`).then((res) => {
+                    console.log(res.data)
+                  dispatch(setSelectedAsesoria(res.data));
+                  });
+                  navigation.navigate("Asesoria", { option });
+                }}
               >
                 <Card.Section
                   content={[
                     {
-                      text: option.value,
+                      text:
+                        "Asesoria #" +
+                        option.id_asesoria +
+                        "\nDr." +
+                        option.id_nutricionista,
                       white: true,
                     },
                   ]}

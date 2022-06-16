@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
+import { useSelector } from "react-redux";
 import { Card, Image } from "react-native-ui-lib";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/AntDesign";
 import { styles } from "./Settings";
-const Dashboard = ({route, navigation }) => {
+import { selectUser, selectAsesorias } from "../../../../src/Reducer";
+import Axios from "axios";
+import { API } from "../../../../api";
+
+const Dashboard = ({ route, navigation }) => {
+  const { user, asesorias } = useSelector(selectUser, selectAsesorias);
+  const [asesoriasPendientes, setAsesoriasPendientes] = useState([]);
+
+  useEffect(() => {
+    Axios.get(API + `/asesoriasPendientes/${user.id_usuario}`).then((res) => {
+      setAsesoriasPendientes(res.data);
+    });
+  }, [user]);
+
+  useEffect(() => {
+    console.log(asesoriasPendientes);
+  }, [asesoriasPendientes]);
 
   return (
     <View
@@ -38,8 +55,8 @@ const Dashboard = ({route, navigation }) => {
             padding: 5,
           }}
         >
-          <Text style={styles.mainTitle}>Hola Maria</Text>
-          <Text>6 asesorias pendientes</Text>
+          <Text style={styles.mainTitle}>Hola Dr. {user.nombre + " "+ user.apellido}</Text>
+          <Text>{asesoriasPendientes.length} asesorias pendientes</Text>
         </View>
 
         <Card
@@ -175,7 +192,7 @@ const Dashboard = ({route, navigation }) => {
           </View>
         </View>
       </View>
-      <View>
+      {/* <View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -196,7 +213,7 @@ const Dashboard = ({route, navigation }) => {
             />
           </View>
         </ScrollView>
-      </View>
+      </View> */}
     </View>
   );
 };

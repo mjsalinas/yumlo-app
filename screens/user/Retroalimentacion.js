@@ -5,21 +5,27 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Card, Image, ExpandableSection, TextField } from "react-native-ui-lib";
 import Icon from "react-native-vector-icons/Entypo";
 import { styles } from "./settings/AsesoriaSettings";
+import { useSelector } from "react-redux";
+import { selectAsesoriaSeleccionada, selectUser } from "../../src/Reducer";
+import  Axios  from "axios";
+import { API } from "../../api";
 
-const Retroalimentacion = (option) => {
+const Retroalimentacion = () => {
+  const { user, selectedAsesoria } = useSelector(
+    selectUser,
+    selectAsesoriaSeleccionada
+  );
+
   const [isExpanded, setIsExpanded] = useState(true);
+  const [retroalimentacion, setRetroalimentacion] = useState("");
+  const [fecha, setFecha] = useState(
+    new Date().toISOString().slice(0, 10).replace("T", " ")
+  );
+
+  const [retroalimentaciones, setRetroalimentaciones] = useState(
+    selectedAsesoria[0].retroalimentaciones
+  );
   const [chevron, setChevron] = useState("chevron-up");
-  const [retroalimentaciones, setRetroalimentaciones] = useState([
-    { key: "asesoria1", value: "test" },
-    { key: "asesoria2", value: "test" },
-    { key: "asesoria3", value: "test" },
-    { key: "asesoria1", value: "test" },
-    { key: "asesoria2", value: "test" },
-    { key: "asesoria3", value: "test" },
-    { key: "asesoria1", value: "test" },
-    { key: "asesoria2", value: "test" },
-    { key: "asesoria3", value: "test" },
-  ]);
   const getHeaderElement = () => {
     return (
       <View style={styles.expandableSection}>
@@ -48,7 +54,7 @@ const Retroalimentacion = (option) => {
             <View
               style={{
                 flexDirection: "row",
-                padding: 15
+                padding: 15,
               }}
             >
               <View
@@ -59,14 +65,29 @@ const Retroalimentacion = (option) => {
                   width: "80%",
                 }}
               >
-                <TextField migrate placeholder="Retroalimentacion"></TextField>
+                <TextField
+                  migrate
+                  placeholder="Retroalimentacion"
+                  onChangeText={(value) => setRetroalimentacion(value)}
+                  value={retroalimentacion}
+                ></TextField>
               </View>
               <View>
                 <Icon
                   name={"add-to-list"}
                   size={30}
                   onPress={() => {
-                    console.log("presssseddd");
+                    Axios.post(API + `/retroalimentaciones`, {
+                      id_asesoria: selectedAsesoria[0].id_asesoria,
+                      retroalimentacion: retroalimentacion,
+                      fecha: fecha,
+                      ingresado_por: user.usuario,
+                    }).then((res) => {
+                      console.log(res.data);
+                      setRetroalimentaciones(res.data)
+                      setRetroalimentacion("")
+                      // dispatch(setSelectedAsesoria(res.data));
+                    });
                   }}
                 />
               </View>
@@ -91,7 +112,7 @@ const Retroalimentacion = (option) => {
                       <Card.Section
                         content={[
                           {
-                            text: option.value,
+                            text: option.retroalimentacion,
                             white: true,
                           },
                         ]}
