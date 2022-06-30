@@ -1,42 +1,44 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import _ from "lodash";
+import { View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Button, Image, TextField } from "react-native-ui-lib";
+import { Button, Image, Picker, TextField } from "react-native-ui-lib";
+import { styles } from "./PagoAsesoriaSettings";
+import { SvgUri } from "react-native-svg";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../src/Reducer";
+import  Axios  from "axios";
+import { API } from "../../../api";
 
 const PagoAsesoria = () => {
-  const styles = StyleSheet.create({
-    input: {
-      backgroundColor: "white",
-      alignItems: "center",
-      justifyContent: "center",
-      paddingLeft: 15,
-      height: 50,
-      borderRadius: 15,
-      borderColor: "#afd479",
-      borderWidth: 1,
-      alignItems: "center",
-      justifyContent: "center",
-      paddingLeft: 15,
-      marginTop: 10,
-    },
-    button: {
-      height: 50,
-      borderRadius: 15,
-      backgroundColor: "#afd479",
-      marginTop: 10,
-    },
-    DatePicker: {
-      height: 50,
-      borderRadius: 15,
-      backgroundColor: "gray",
-      color: "white",
-      marginTop: 10,
-    },
-  });
+  const { user, selectedAsesoria } = useSelector(selectUser);
+
+  const [selectedNutricionistaId, setSelectedNutricionistaId] = useState(null);
+  const [selectedNutricionista, setSelectedNutricionista] = useState({});
+  const [nutricionistas, setNutricionistas] = useState([]);
+  
+  useEffect(() => {
+    if(nutricionistas.length === 0){
+       Axios.get(API + `/usuariosNutricionistas`).then((res) => {
+        setNutricionistas(res.data);
+    });
+    }
+  }, []);
+
+
+  const handleOnRealizarPago = () => {
+    Axios.post(API + `/pago`, {
+      id_nutricionista: selectedNutricionistaId,
+      id_paciente: user.id_usuario,
+      fecha: new Date().toISOString().slice(0, 10).replace("T", " "),
+    }).then((res) => {
+      setConfiguraciones(res.data);
+      clearFields();
+    });
+  }
   return (
     <View>
       <LinearGradient
-        // Background Linear Gradient
         colors={["#afd479", "#799f0c"]}
         style={{
           position: "absolute",
@@ -46,23 +48,60 @@ const PagoAsesoria = () => {
           height: "100%",
         }}
       />
+      <View
+        style={{
+          height: 60,
+          marginTop: 10,
+          borderRadius: 20,
+          alignItems: "center",
+          backgroundColor: "white",
+        }}
+      >
+        <Picker
+          placeholder="Seleccione nutricionista"
+          value={selectedNutricionista}
+          floatingPlaceholder
+          enableModalBlur={false}
+          onChange={(item) => {
+            setSelectedNutricionista(item)
+            setSelectedNutricionistaId(item.value);
+          }}
+          topBarProps={{
+            title: "Nutricionistas",
+            containerStyle: { marginTop: 40 },
+          }}
+          showSearch
+          searchPlaceholder={"Buscar nutricionista"}
+          migrateTextField
+        >
+          {_.map(nutricionistas, (option) => (
+            <Picker.Item
+              value={option.id_usuario || ""}
+              label={option.nombre + " " + option.apellido + " - L 1,400.00 " || ""}
+            />
+          ))}
+        </Picker>
+      </View>
       <Image
+        //   uri={'https://yumlog-bucket.s3.us-east-2.amazonaws.com/uploads/eb735ef4-7397-4c94-aa12-a9dde351829b'}
+        //   width="100%"
+        //  height="100%"
         source={require("../../../assets/tarjeta.png")}
         style={{
           width: 160,
           height: 160,
           position: "absolute",
-          marginTop: 90,
+          marginTop: 60,
           marginLeft: 130,
           zIndex: 1,
         }}
       />
       <View
         style={{
-          height: 400,
+          height: 450,
           paddingTop: 50,
           padding: 15,
-          marginTop: 180,
+          marginTop: 90,
           borderRadius: 40,
           backgroundColor: "white",
         }}
@@ -91,7 +130,7 @@ const PagoAsesoria = () => {
           style={styles.input}
           onChangeText={(value) => setUsuario(value)}
         />
-        <Button style={styles.button} onPress={() => {}}>
+        <Button style={styles.button} onPress={handleOnRealizarPago}>
           <Text style={{ color: "white", fontWeight: "bold" }}>
             Realizar Pago
           </Text>
