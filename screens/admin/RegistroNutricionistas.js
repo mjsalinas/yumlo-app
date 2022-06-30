@@ -26,7 +26,7 @@ const RegistroNutricionistas = ({ navigation }) => {
   const handleOnPressRegister = () => {
     console.log("registerrr");
     Axios.post("http://192.168.54.1:3000/usuarios", {
-      rol: 2,
+      rol: 1,
       usuario: usuario,
       contrasena: contrasena,
       nombre: nombre,
@@ -65,6 +65,7 @@ const RegistroNutricionistas = ({ navigation }) => {
       alignItems: "center",
       justifyContent: "center",
       paddingLeft: 15,
+      marginTop: 10,
     },
     button: {
       height: 50,
@@ -145,10 +146,11 @@ const RegistroNutricionistas = ({ navigation }) => {
               </Text>
               <MaskedInput
                 maxLength={8}
-                style={{ fontSize: 15 }}
+                style={{ fontSize: 18, marginTop:10 }}
                 placeholder={"XXXX-XXXX"}
                 keyboardType={"numeric"}
-                onChangeText={value => {
+                renderMaskedText={<Text >{numeroTelefono}</Text>}
+                onChangeText={(value) => {
                   setNumeroTelefono(value);
                 }}
               />

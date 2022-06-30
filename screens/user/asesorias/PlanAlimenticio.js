@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import React, { useState } from "react";
-import { styles } from "./settings/AsesoriaSettings";
+import { styles } from "../settings/AsesoriaSettings";
 import Icon from "react-native-vector-icons/Entypo";
 import { Picker, ExpandableSection, TextField } from "react-native-ui-lib";
 

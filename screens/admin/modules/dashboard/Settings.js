@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   },
   cardContainer: {
     flexDirection: "column",
-    flex: 0.5,
+    flex: 0.6,
     flexWrap: "wrap",
     alignContent: "space-between",
   },
@@ -24,18 +24,21 @@ export const styles = StyleSheet.create({
   },
   cardColumn: {
     flexDirection: "column",
-    flex: 0.5,
+    flex: 0.8,
     flexWrap: "wrap",
     alignContent: "space-between",
     padding: 5,
   },
   cardSectionContent: {
+    marginLeft:10,
+    paddingTop: -10,
     padding: 10,
     flex: 1,
     flexWrap: "wrap",
     fontSize: 35,
   },
   card: {
+    paddingTop: 15,
     backgroundColor: "#b6d885",
     shadowColor: "black",
     shadowOffset: {
@@ -46,4 +49,10 @@ export const styles = StyleSheet.create({
     shadowOpacity: "0.2",
     elevation: 15,
   },
+  cardTexts:{
+    paddingTop: 5,
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "white",
+  }
 });

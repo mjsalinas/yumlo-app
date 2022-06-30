@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { View, Text, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { styles } from "./settings/AsesoriaSettings";
+import { styles } from "../settings/AsesoriaSettings";
 import PlanAlimenticio from "./PlanAlimenticio";
-import Retroalimentacion from "./Retroalimentacion";
-import DatosSeguimiento from "./DatosSeguimiento";
+import Retroalimentacion from "../Retroalimentacion";
+import DatosSeguimiento from "../DatosSeguimiento";
 import { ScrollView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import { selectAsesoriaSeleccionada, selectUser } from "../../src/Reducer";
+import { selectAsesoriaSeleccionada, selectUser } from "../../../src/Reducer";
 const Asesoria = () => {
   const { user, selectedAsesoria } = useSelector(
     selectUser,

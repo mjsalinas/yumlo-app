@@ -4,7 +4,7 @@ import { TabController, TabControllerItemProps } from "react-native-ui-lib";
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import RegistroPacientes from "./user/RegistroPacientes";
-import RegistroNutricionistas from "./admin/modules/RegistroNutricionistas";
+import RegistroNutricionistas from "./admin/RegistroNutricionistas";
 
 const Tab = createMaterialTopTabNavigator();
 const tabs = ["Paciente", "Nutricionista"];
@@ -14,7 +14,6 @@ const tabs = ["Paciente", "Nutricionista"];
 const Registro = () => {
   return(
           <Tab.Navigator 
-          style={{backgroundColor:'red'}}
           >
               <Tab.Screen name = "Paciente" component={RegistroPacientes} />
               <Tab.Screen name = "Nutricionista" component={RegistroNutricionistas} />

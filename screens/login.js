@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, LogBox  } from "react-native";
 import { bindActionCreators } from "redux";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
+import { ScrollView } from "react-native-gesture-handler";
 import { Button, Image, TextField } from "react-native-ui-lib";
 import {
   selectUser,
@@ -13,24 +14,13 @@ import {
 } from "../src/Reducer";
 import { API } from "../api";
 
+LogBox.ignoreAllLogs();
+
 const Login = ({ navigation }) => {
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const { user, asesorias } = useSelector(selectUser, selectAsesorias);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (user.rol == "nutricionista") {
-  //     Axios.get(API + `/asesoriasNutri/${user.id_usuario}`).then((res) => {
-  //       dispatch(setAsesorias(res.data));
-  //     });
-  //   } else {
-  //     Axios.get(API + `/asesoriasPaciente/${user.id_usuario}`).then((res) => {
-  //       console.log(user.id_usuario)
-  //       dispatch(setAsesorias(res.data));
-  //   });
-  //   }
-  // }, [user]);
 
   const getAsesorias = (user) => {
     if (user.rol == "nutricionista") {
@@ -40,9 +30,9 @@ const Login = ({ navigation }) => {
     } else {
       Axios.get(API + `/asesoriasPaciente/${user.id_usuario}`).then((res) => {
         dispatch(setAsesorias(res.data));
-    });
+      });
     }
-  }
+  };
 
   const styles = StyleSheet.create({
     input: {
@@ -56,6 +46,7 @@ const Login = ({ navigation }) => {
       alignItems: "center",
       justifyContent: "center",
       paddingLeft: 15,
+      marginTop: 10,
     },
     button: {
       height: 50,
@@ -66,7 +57,6 @@ const Login = ({ navigation }) => {
   });
 
   const handleOnPressLogin = () => {
-    //login api
     Axios.post("http://192.168.54.1:3000/login", {
       usuario: usuario,
       contrasena: password,
@@ -92,20 +82,22 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <View
+    <ScrollView
+      vertical
+      showsVerticalScrollIndicator={true}
       style={{
         flexDirection: "column",
         flex: 1,
-        padding: 15,
+        padding: 10,
       }}
     >
       <LinearGradient
         colors={["#dfdcc0", "#afd479"]}
         style={{
           position: "absolute",
-          left: -90,
+          left: -80,
           right: 150,
-          top: -150,
+          top: -120,
           height: "45%",
           borderRadius: 400 / 2,
         }}
@@ -118,8 +110,8 @@ const Login = ({ navigation }) => {
           textAlign: "center",
         }}
       >
-        <Text style={{ fontSize: 30, fontWeight: "bold" }}>Bienvenido</Text>
-        <Text style={{ fontSize: 20 }}>Inicia Sesion</Text>
+        <Text style={{ fontSize: 30, fontWeight: "bold", color:"white"}}>Bienvenido</Text>
+        <Text style={{ fontSize: 20, color:"white" }}>Inicia Sesion</Text>
         <Image
           source={require("../assets/user.png")}
           style={{
@@ -132,7 +124,6 @@ const Login = ({ navigation }) => {
           }}
         />
       </View>
-
       <View
         style={{
           flexDirection: "column",
@@ -151,9 +142,9 @@ const Login = ({ navigation }) => {
           placeholder="Contraseña"
           style={styles.input}
           onChangeText={(value) => setPassword(value)}
+          secureTextEntry
         />
       </View>
-
       <View
         style={{
           flexDirection: "column",
@@ -178,7 +169,7 @@ const Login = ({ navigation }) => {
           </Text>
         </Button>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 export default Login;

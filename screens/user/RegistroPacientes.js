@@ -15,12 +15,14 @@ const RegistroPacientes = ({ navigation }) => {
   const [nombre, setNombre] = useState(null);
   const [apellido, setApellido] = useState(null);
   const [fechaNacimiento, setFechaNacimiento] = useState(new Date());
-  const [fechaNacimientoFormato, setFechaNacimientoFormato] = useState(new Date());
+  const [fechaNacimientoFormato, setFechaNacimientoFormato] = useState(
+    new Date()
+  );
   const [numeroTelefono, setNumeroTelefono] = useState(null);
 
   const handleOnPressRegister = () => {
     Axios.post("http://192.168.54.1:3000/usuarios", {
-      rol: 1,
+      rol: 2,
       usuario: usuario,
       contrasena: contrasena,
       nombre: nombre,
@@ -33,10 +35,14 @@ const RegistroPacientes = ({ navigation }) => {
     });
   };
 
-  const onChangeDatePicker = ( value) => {
-    console.log('picker date: ' + value.toISOString().slice(0, 10).replace('T', ' '));
-    setFechaNacimientoFormato(value.toISOString().slice(0, 10).replace('T', ' '));
-  }
+  const onChangeDatePicker = (value) => {
+    console.log(
+      "picker date: " + value.toISOString().slice(0, 10).replace("T", " ")
+    );
+    setFechaNacimientoFormato(
+      value.toISOString().slice(0, 10).replace("T", " ")
+    );
+  };
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -63,6 +69,7 @@ const RegistroPacientes = ({ navigation }) => {
       alignItems: "center",
       justifyContent: "center",
       paddingLeft: 15,
+      marginTop: 10,
     },
     button: {
       height: 50,
@@ -145,25 +152,23 @@ const RegistroPacientes = ({ navigation }) => {
               onChange={onChangeDatePicker}
             ></DateTimePicker>
             <View>
-              <Text style={{ color: "gray", fontSize: 17 }}>
+              <Text style={{ color: "gray", fontSize: 14 }}>
                 Numero de Telefono
               </Text>
               <MaskedInput
                 maxLength={8}
-                style={{ fontSize: 15 }}
+                style={{ fontSize: 18, marginTop:10 }}
                 placeholder={"XXXX-XXXX"}
                 keyboardType={"numeric"}
-                onChangeText={value => {
+                renderMaskedText={<Text >{numeroTelefono}</Text>}
+                onChangeText={(value) => {
                   setNumeroTelefono(value);
                 }}
               />
             </View>
           </View>
         </View>
-        <Button
-          style={styles.button}
-          onPress={handleOnPressRegister}
-        >
+        <Button style={styles.button} onPress={handleOnPressRegister}>
           <Text style={{ color: "white", fontWeight: "bold" }}>
             Registrarme
           </Text>

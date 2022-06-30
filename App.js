@@ -8,14 +8,15 @@ import { Provider, useSelector, useDispatch } from "react-redux";
 import Login from "./screens/Login";
 import Registro from "./screens/Registro";
 import Dashboard from "./screens/admin/modules/dashboard/Dashboard";
-import Configuraciones from "./screens/admin/modules/Configuraciones";
+import Configuraciones from "./screens/admin/modules/configuraciones/Configuraciones";
 import UserDashboard from "./screens/user/UserDashboard";
-import Asesoria from "./screens/user/Asesoria";
-import IngresarPlanAlimenticio from "./screens/admin/IngresarPlanAlimenticio";
+import Asesoria from "./screens/user/asesorias/Asesoria";
+import IngresarPlanAlimenticio from "./screens/admin/modules/planes-alimenticios/IngresarPlanAlimenticio";
 import Perfil from "./screens/Perfil";
-import PagoAsesoria from "./screens/user/PagoAsesoria";
+import PagoAsesoria from "./screens/user/pago-asesoria/PagoAsesoria";
 import store from "./src/Store";
 import { selectUser } from "./src/Reducer";
+import AsesoriasPendientes from "./screens/admin/modules/asesorias/AsesoriasPendientes";
 
 const App = () => {
   let isNutricionista;
@@ -33,6 +34,7 @@ const App = () => {
           name={"IngresarPlanAlimenticio"}
           component={IngresarPlanAlimenticio}
         />
+        <PacienteStack.Screen name={"AsesoriasPendientes"} component={AsesoriasPendientes} />
       </NutricionistaStack.Navigator>
     );
   };
@@ -68,10 +70,10 @@ const App = () => {
         <PacienteTab.Screen
           name={"UserDashboard"}
           component={PacienteStackScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false,  }}
         />
         <PacienteTab.Screen name={"Perfil"} component={Perfil} />
-        <PacienteTab.Screen name={"PagoAsesoria"} component={PagoAsesoria} />
+        <PacienteTab.Screen name={"Pago Asesoria"} component={PagoAsesoria} />
       </PacienteTab.Navigator>
     );
   };

@@ -15,9 +15,9 @@ const DatosSeguimiento = () => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [chevron, setChevron] = useState("chevron-up");
   const [categoryOptions, setCategoryOptions] = useState([
-    { label: "Desayuno", value: "Desayuno" },
-    { label: "Almuerzo", value: "Almuerzo" },
-    { label: "Cena", value: "Cena" },
+    // { label: "Desayuno", value: "Desayuno" },
+    // { label: "Almuerzo", value: "Almuerzo" },
+    // { label: "Cena", value: "Cena" },
   ]);
 
   const styles = StyleSheet.create({

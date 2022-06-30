@@ -3,7 +3,7 @@ import { View, Text, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import { Card, Image } from "react-native-ui-lib";
 import { LinearGradient } from "expo-linear-gradient";
-import Icon from "react-native-vector-icons/AntDesign";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "./Settings";
 import { selectUser, selectAsesorias } from "../../../../src/Reducer";
 import Axios from "axios";
@@ -20,6 +20,7 @@ const Dashboard = ({ route, navigation }) => {
   }, [user]);
 
   useEffect(() => {
+console.log('asesorias pend:')
     console.log(asesoriasPendientes);
   }, [asesoriasPendientes]);
 
@@ -55,7 +56,9 @@ const Dashboard = ({ route, navigation }) => {
             padding: 5,
           }}
         >
-          <Text style={styles.mainTitle}>Hola Dr. {user.nombre + " "+ user.apellido}</Text>
+          <Text style={styles.mainTitle}>
+            Hola Dr. {user.nombre + " " + user.apellido}
+          </Text>
           <Text>{asesoriasPendientes.length} asesorias pendientes</Text>
         </View>
 
@@ -66,27 +69,52 @@ const Dashboard = ({ route, navigation }) => {
           style={styles.card}
           onPress={() => console.log("pressed")}
         >
-          <Card.Section
-            content={[
-              {
-                text: "Retroalimentaciones Recientes",
+          <View
+            style={{
+              flexDirection: "row",
+              flex: 1,
+            }}
+          >
+             <Image
+                source={require("../../../../assets/chat.png")}
+                style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
+              />
+            {/* <Icon
+              name={"comments-o"}
+              size={30}
+              onPress={() => {
+                console.log("presssseddd");
+              }}
+            /> */}
+              <Text
+                style={{ fontSize: 15, fontWeight: "bold", color: "white", marginLeft:10,
+                paddingTop: 15, }}
+              >
+                Retroalimentaciones Recientes 
+              </Text>
 
-                $textDefault: true,
-                white: true,
-              },
-              {
-                text: "Miguel añadió un comentario...",
-                white: true,
-              },
-            ]}
-            style={styles.cardSectionContent}
-          />
+            {/* <Card.Section
+              content={[
+                {
+                  text: "Retroalimentaciones Recientes",
+
+                  $textDefault: true,
+                  white: true,
+                },
+                {
+                  text: "Miguel añadió un comentario...",
+                  white: true,
+                },
+              ]}
+              style={styles.cardSectionContent}
+            /> */}
+          </View>
         </Card>
       </View>
       <View style={styles.cardContainer}>
         <View>
           <Text style={styles.titleText}>
-            <Icon name="bars" size={20}>
+            <Icon name="list" size={20}>
               Resumen de Actividad
             </Icon>
           </Text>
@@ -98,42 +126,15 @@ const Dashboard = ({ route, navigation }) => {
               center
               flex
               width="100%"
-              height="65%"
+              height="60%"
               style={styles.card}
             >
-              <Card.Section
-                content={[
-                  { text: "Asesorias Completas", white: true, text70: true },
-                ]}
-                style={styles.cardSectionContent}
+              <Image
+                source={require("../../../../assets/completas.gif")}
+                style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
               />
-            </Card>
-            <Card
-              onPress={() => console.log("pressed")}
-              style={{
-                backgroundColor: "#b6d885",
-                shadowColor: "black",
-                shadowOffset: {
-                  width: 10,
-                  height: 10,
-                },
-                shadowRadius: "15",
-                shadowOpacity: "0.2",
-                elevation: 15,
-                height: "35%",
-                marginTop: "10%",
-              }}
-            >
-              <Card.Section
-                content={[
-                  {
-                    text: "Total de Asesorias",
-                    text70: true,
-                    white: true,
-                  },
-                ]}
-                style={styles.cardSectionContent}
-              />
+
+              <Text style={styles.cardTexts}>Asesorias Completas</Text>
             </Card>
           </View>
           <View style={styles.cardColumn}>
@@ -153,20 +154,22 @@ const Dashboard = ({ route, navigation }) => {
                 height: "30%",
               }}
             >
-              <Card.Section
-                center
-                flex
-                content={[
-                  {
-                    text: "Total de Asesorias",
-                    white: true,
-                  },
-                ]}
-                style={styles.cardSectionContent}
-              ></Card.Section>
+              <Image
+                source={require("../../../../assets/totales.png")}
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: 400 / 2,
+                  marginLeft: 80,
+                  marginTop: 8,
+                }}
+              />
+              <Text style={styles.cardTexts}> Asesorias Totales</Text>
             </Card>
             <Card
-              onPress={() => console.log("pressed")}
+              onPress={() => {
+                navigation.navigate("AsesoriasPendientes");
+              }}
               center
               flex
               width="100%"
@@ -184,10 +187,11 @@ const Dashboard = ({ route, navigation }) => {
                 marginTop: "10%",
               }}
             >
-              <Card.Section
-                content={[{ text: "Pendientes", text70: true, white: true }]}
-                style={styles.cardSectionContent}
+              <Image
+                source={require("../../../../assets/pendientes.png")}
+                style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
               />
+              <Text style={styles.cardTexts}> Asesorias Pendientes</Text>
             </Card>
           </View>
         </View>
