@@ -5,10 +5,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Card } from "react-native-ui-lib";
 import { ScrollView } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAsesorias, selectUser } from "../../../../src/Reducer";
+import { selectAsesorias, selectUser, setSelectedAsesoria } from "../../../../src/Reducer";
 import { styles } from "./AsesoriaSettings";
+import Axios from "axios";
+import { API } from "../../../../api";
 
-const AsesoriasPendientes = () => {
+const AsesoriasPendientes = ({ navigation }) => {
   const { user, asesorias } = useSelector(selectUser, selectAsesorias);
   const dispatch = useDispatch();
 
@@ -53,12 +55,10 @@ const AsesoriasPendientes = () => {
               style={styles.card}
               onPress={() => {
                 Axios.get(API + `/asesoria/${option.id_asesoria}`).then((res) => {
-                  console.log(res.data)
                 dispatch(setSelectedAsesoria(res.data));
-                console.log('aja asesoriassss')
                 console.log(res.data)
                 });
-                // navigation.navigate("Asesoria", { option });
+                navigation.navigate("AsesoriaNutricionista");
               }}
             >
               <Card.Section

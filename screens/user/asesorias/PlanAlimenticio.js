@@ -1,11 +1,28 @@
+import React, { useState } from "react";
+import _ from "lodash";
 import { View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import React, { useState } from "react";
-import { styles } from "../settings/AsesoriaSettings";
+import { useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Entypo";
-import { Picker, ExpandableSection, TextField } from "react-native-ui-lib";
+import { Picker,
+  ExpandableSection,
+  TextField,
+  Card,
+  Button,
+  Image,} from "react-native-ui-lib";
+import { selectAsesoriaSeleccionada, selectUser } from "../../../src/Reducer";
+import { styles } from "./PlanAlimenticioSettings";
 
 const PlanAlimenticio = () => {
+  const { user, selectedAsesoria } = useSelector(
+    selectUser,
+    selectAsesoriaSeleccionada
+  );
+  const [configuracionesDetalle, setConfiguracionesDetalle] = useState([]);
+  const [selectedConfiguracionDetalle, setSelectedConfiguracionDetalle] =
+    useState({});
+  const [selectedConfiguracionDetalleId, setSelectedConfiguracionDetalleId] =
+    useState(0);
   const [isExpanded, setIsExpanded] = useState(true);
   const [chevron, setChevron] = useState("chevron-up");
 
@@ -33,7 +50,6 @@ const PlanAlimenticio = () => {
           sectionHeader={getHeaderElement()}
           onPress={handleOnExpand}
         >
-          <Text style={styles.titleText}>Plan Alimenticio</Text>
           <ScrollView
             vertical
             showsVerticalScrollIndicator={true}
@@ -41,7 +57,53 @@ const PlanAlimenticio = () => {
               marginTop: 15,
               height: 200,
             }}
-          ></ScrollView>
+          >
+            <Card flex center style={styles.card}>
+              <Image
+                source={require("../../../assets/food2.jpeg")}
+                style={styles.elementoPlan}
+              />
+              <View
+                style={{
+                  flex: 0.9,
+                  marginLeft: 10,
+                }}
+              >
+                <Text style={{ fontWeight: "bold" }}> Desayuno</Text>
+                <Text> Bowl de Avena</Text>
+              </View>
+            </Card>
+            <Card flex center style={styles.card}>
+              <Image
+                source={require("../../../assets/food1.jpg")}
+                style={styles.elementoPlan}
+              />
+              <View
+                style={{
+                  flex: 0.9,
+                  marginLeft: 10,
+                }}
+              >
+                <Text style={{ fontWeight: "bold" }}> Almuerzo</Text>
+                <Text> 130 g de Pollo y ensalada verde</Text>
+              </View>
+            </Card>
+            <Card flex center style={styles.card}>
+              <Image
+                source={require("../../../assets/food3.jpg")}
+                style={styles.elementoPlan}
+              />
+              <View
+                style={{
+                  flex: 0.9,
+                  marginLeft: 10,
+                }}
+              >
+                <Text style={{ fontWeight: "bold" }}> Cena</Text>
+                <Text> 130 g de Pescado y 1/3 taza de Arroz  </Text>
+              </View>
+            </Card>
+          </ScrollView>
         </ExpandableSection>
       </View>
     </View>

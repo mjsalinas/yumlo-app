@@ -11,7 +11,7 @@ const DatosSeguimiento = () => {
     selectUser,
     selectAsesoriaSeleccionada
   );
-  const [datosSeguimiento, setDatosSeguimiento] = useState(selectedAsesoria[0].datos_seguimiento);
+  const [datosSeguimiento, setDatosSeguimiento] = useState(selectedAsesoria[0].datos_seguimiento || []);
   const [isExpanded, setIsExpanded] = useState(true);
   const [chevron, setChevron] = useState("chevron-up");
   const [categoryOptions, setCategoryOptions] = useState([
@@ -43,14 +43,6 @@ const DatosSeguimiento = () => {
       paddingTop: 10,
       height: 200,
       backgroundColor: "#b6d885",
-      shadowColor: "black",
-      shadowOffset: {
-        width: 10,
-        height: 10,
-      },
-      shadowRadius: "15",
-      shadowOpacity: "0.2",
-      elevation: 15,
       borderRadius: 25,
     },
     expandableLayout: {

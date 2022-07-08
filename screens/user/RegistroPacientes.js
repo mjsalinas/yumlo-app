@@ -8,6 +8,7 @@ import {
   DateTimePicker,
 } from "react-native-ui-lib";
 import React, { useEffect, useState } from "react";
+import { API } from "../../api";
 
 const RegistroPacientes = ({ navigation }) => {
   const [usuario, setUsuario] = useState(null);
@@ -21,7 +22,7 @@ const RegistroPacientes = ({ navigation }) => {
   const [numeroTelefono, setNumeroTelefono] = useState(null);
 
   const handleOnPressRegister = () => {
-    Axios.post("http://192.168.54.1:3000/usuarios", {
+    Axios.post(API + "/usuarios", {
       rol: 2,
       usuario: usuario,
       contrasena: contrasena,

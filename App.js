@@ -17,6 +17,7 @@ import PagoAsesoria from "./screens/user/pago-asesoria/PagoAsesoria";
 import store from "./src/Store";
 import { selectUser } from "./src/Reducer";
 import AsesoriasPendientes from "./screens/admin/modules/asesorias/AsesoriasPendientes";
+import AsesoriaNutricionista from "./screens/admin/modules/asesorias/AsesoriaNutricionista";
 
 const App = () => {
   let isNutricionista;
@@ -30,11 +31,8 @@ const App = () => {
     return (
       <NutricionistaStack.Navigator>
         <NutricionistaStack.Screen name={"Dashboard"} component={Dashboard} />
-        <NutricionistaStack.Screen
-          name={"IngresarPlanAlimenticio"}
-          component={IngresarPlanAlimenticio}
-        />
         <PacienteStack.Screen name={"AsesoriasPendientes"} component={AsesoriasPendientes} />
+        <PacienteStack.Screen name={"AsesoriaNutricionista"} component={AsesoriaNutricionista} />
       </NutricionistaStack.Navigator>
     );
   };
@@ -59,7 +57,7 @@ const App = () => {
           component={NutricionistaStackScreen}
           options={{ headerShown: false }}
         />
-        <NutricionistaTab.Screen name={"Perfil"} component={Perfil} />
+        {/* <NutricionistaTab.Screen name={"Perfil"} component={Perfil} /> */}
         <NutricionistaTab.Screen
           name={"Configuraciones"}
           component={Configuraciones}
@@ -72,7 +70,7 @@ const App = () => {
           component={PacienteStackScreen}
           options={{ headerShown: false,  }}
         />
-        <PacienteTab.Screen name={"Perfil"} component={Perfil} />
+        {/* <PacienteTab.Screen name={"Perfil"} component={Perfil} /> */}
         <PacienteTab.Screen name={"Pago Asesoria"} component={PagoAsesoria} />
       </PacienteTab.Navigator>
     );

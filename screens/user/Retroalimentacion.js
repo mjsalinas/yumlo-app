@@ -23,7 +23,7 @@ const Retroalimentacion = () => {
   );
 
   const [retroalimentaciones, setRetroalimentaciones] = useState(
-    selectedAsesoria[0].retroalimentaciones
+    selectedAsesoria[0].retroalimentaciones || []
   );
   const [chevron, setChevron] = useState("chevron-up");
   const getHeaderElement = () => {
@@ -113,7 +113,7 @@ const Retroalimentacion = () => {
                         content={[
                           {
                             text: option.retroalimentacion,
-                            white: true,
+                            // white: true,
                           },
                         ]}
                         style={styles.cardSectionContent}

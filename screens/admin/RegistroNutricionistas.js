@@ -9,6 +9,7 @@ import {
   DateTimePicker,
 } from "react-native-ui-lib";
 import React, { useEffect, useState } from "react";
+import { API } from "../../api";
 // import DateTimePicker from "@react-native-community/datetimepicker";
 
 const RegistroNutricionistas = ({ navigation }) => {
@@ -25,7 +26,7 @@ const RegistroNutricionistas = ({ navigation }) => {
 
   const handleOnPressRegister = () => {
     console.log("registerrr");
-    Axios.post("http://192.168.54.1:3000/usuarios", {
+    Axios.post(API + "/usuarios", {
       rol: 1,
       usuario: usuario,
       contrasena: contrasena,

@@ -57,7 +57,7 @@ const Login = ({ navigation }) => {
   });
 
   const handleOnPressLogin = () => {
-    Axios.post("http://192.168.54.1:3000/login", {
+    Axios.post(API +"/login", {
       usuario: usuario,
       contrasena: password,
     })
