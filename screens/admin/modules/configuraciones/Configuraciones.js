@@ -17,6 +17,7 @@ import { API } from "../../../../api";
 import { RNS3 } from "react-native-aws3";
 import { Keys as aws } from "../../../../Keys";
 import { S3Image } from "aws-amplify-react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Configuraciones = () => {
   const { user, selectedAsesoria } = useSelector(selectUser);
@@ -226,6 +227,17 @@ const Configuraciones = () => {
   };
   return (
     <ScrollView>
+        <LinearGradient
+        // Background Linear Gradient
+        colors={["#afd479", "#799f0c"]}
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 0,
+          height: "100%",
+        }}
+      />
       <View style={styles.expandableLayout}>
         <ExpandableSection
           expanded={configuracionesIsExpanded}

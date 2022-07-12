@@ -5,7 +5,8 @@ export const UserSlice = createSlice({
   initialState: {
     user: {},
     asesorias: [],
-    selectedAsesoria: {},
+    asesoriasPendientes: [],
+    selectedAsesoria: [],
   },
   reducers: {
     setUser: (state, action) => {
@@ -17,12 +18,16 @@ export const UserSlice = createSlice({
     setSelectedAsesoria: (state, action) => {
       state.selectedAsesoria = action.payload;
     },
+    setAsesoriasPendientes: (state, action) =>{
+      state.asesoriasPendientes = action.payload;
+    }
   },
 });
 
 export const selectUser = (state) => state.user;
 export const selectAsesorias = (state) => state.asesorias;
+export const selectAsesoriasPendientes = (state) => state.asesoriasPendientes;
 export const selectAsesoriaSeleccionada = (state) => state.selectedAsesoria;
 
-export const { setUser, setAsesorias, setSelectedAsesoria } = UserSlice.actions;
+export const { setUser, setAsesorias, setAsesoriasPendientes, setSelectedAsesoria } = UserSlice.actions;
 export default UserSlice.reducer;

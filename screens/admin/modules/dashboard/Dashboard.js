@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Card, Image } from "react-native-ui-lib";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "./Settings";
-import { selectUser, selectAsesorias } from "../../../../src/Reducer";
+import { selectUser, selectAsesorias, selectAsesoriasPendientes } from "../../../../src/Reducer";
 import Axios from "axios";
 import { API } from "../../../../api";
 
 const Dashboard = ({ route, navigation }) => {
-  const { user, asesorias } = useSelector(selectUser, selectAsesorias);
-  const [asesoriasPendientes, setAsesoriasPendientes] = useState([]);
-
-  useEffect(() => {
-    Axios.get(API + `/asesoriasPendientes/${user.id_usuario}`).then((res) => {
-      setAsesoriasPendientes(res.data);
-    });
-  }, [user]);
-
-  useEffect(() => {
-console.log('asesorias pend:')
-    console.log(asesoriasPendientes);
-  }, [asesoriasPendientes]);
+  const { user, asesoriasPendientes } = useSelector(selectUser, selectAsesoriasPendientes);
 
   return (
     <View
@@ -79,35 +67,12 @@ console.log('asesorias pend:')
                 source={require("../../../../assets/chat.png")}
                 style={{ width: 60, height: 60, borderRadius: 400 / 2 }}
               />
-            {/* <Icon
-              name={"comments-o"}
-              size={30}
-              onPress={() => {
-                console.log("presssseddd");
-              }}
-            /> */}
               <Text
                 style={{ fontSize: 15, fontWeight: "bold", color: "white", marginLeft:10,
                 paddingTop: 15, }}
               >
                 Retroalimentaciones Recientes 
               </Text>
-
-            {/* <Card.Section
-              content={[
-                {
-                  text: "Retroalimentaciones Recientes",
-
-                  $textDefault: true,
-                  white: true,
-                },
-                {
-                  text: "Miguel añadió un comentario...",
-                  white: true,
-                },
-              ]}
-              style={styles.cardSectionContent}
-            /> */}
           </View>
         </Card>
       </View>
@@ -168,7 +133,7 @@ console.log('asesorias pend:')
             </Card>
             <Card
               onPress={() => {
-                navigation.navigate("AsesoriasPendientes");
+                navigation.navigate("Asesorias Pendientes");
               }}
               center
               flex

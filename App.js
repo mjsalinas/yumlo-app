@@ -31,8 +31,15 @@ const App = () => {
     return (
       <NutricionistaStack.Navigator>
         <NutricionistaStack.Screen name={"Dashboard"} component={Dashboard} />
-        <PacienteStack.Screen name={"AsesoriasPendientes"} component={AsesoriasPendientes} />
-        <PacienteStack.Screen name={"AsesoriaNutricionista"} component={AsesoriaNutricionista} />
+        <PacienteStack.Screen
+          name={"Asesorias Pendientes"}
+          component={AsesoriasPendientes}
+        />
+        <PacienteStack.Screen
+          name={"AsesoriaNutricionista"}
+          component={AsesoriaNutricionista}
+          options={{ headerShown: false }}
+        />
       </NutricionistaStack.Navigator>
     );
   };
@@ -68,7 +75,7 @@ const App = () => {
         <PacienteTab.Screen
           name={"UserDashboard"}
           component={PacienteStackScreen}
-          options={{ headerShown: false,  }}
+          options={{ headerShown: false }}
         />
         {/* <PacienteTab.Screen name={"Perfil"} component={Perfil} /> */}
         <PacienteTab.Screen name={"Pago Asesoria"} component={PagoAsesoria} />
@@ -77,7 +84,7 @@ const App = () => {
   };
   return (
     <Provider store={store}>
-       <NavigationContainer>
+      <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name={"Login"} component={Login} />
           <Stack.Screen name={"Registro"} component={Registro} />
@@ -89,7 +96,7 @@ const App = () => {
             useLegacyImplementation={false}
           />
         </Stack.Navigator>
-      </NavigationContainer> 
+      </NavigationContainer>
     </Provider>
   );
 };

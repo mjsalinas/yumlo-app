@@ -57,7 +57,6 @@ const UserDashboard = ({ navigation }) => {
                   Axios.get(API + `/asesoria/${option.id_asesoria}`).then((res) => {
                     console.log(res.data)
                   dispatch(setSelectedAsesoria(res.data));
-                  console.log('aja asesoriassss')
                   console.log(res.data)
                   });
                   navigation.navigate("Asesoria", { option });

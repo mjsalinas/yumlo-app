@@ -11,6 +11,7 @@ import {
   setUser,
   setAsesorias,
   selectAsesorias,
+  setAsesoriasPendientes,
 } from "../src/Reducer";
 import { API } from "../api";
 
@@ -26,6 +27,9 @@ const Login = ({ navigation }) => {
     if (user.rol == "nutricionista") {
       Axios.get(API + `/asesoriasNutri/${user.id_usuario}`).then((res) => {
         dispatch(setAsesorias(res.data));
+      });
+      Axios.get(API + `/asesoriasPendientes/${user.id_usuario}`).then((res) => {
+        dispatch(setAsesoriasPendientes(res.data));
       });
     } else {
       Axios.get(API + `/asesoriasPaciente/${user.id_usuario}`).then((res) => {
