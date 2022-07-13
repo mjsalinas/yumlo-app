@@ -58,7 +58,6 @@ const AsesoriasPendientes = ({ navigation }) => {
                 onPress={() => {
                   Axios.get(API + `/asesoria/${option.id_asesoria}`).then((res) => {
                     const asesoriaSeleccionada = res.data[0];
-                    console.log(asesoriaSeleccionada)
                     navigation.navigate("AsesoriaNutricionista", {asesoriaSeleccionada});
                   });
                 }}

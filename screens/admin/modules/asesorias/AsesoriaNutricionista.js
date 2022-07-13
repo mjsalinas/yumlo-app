@@ -58,14 +58,14 @@ const AsesoriaNutricionista = ({ route, navigation }) => {
 
       <ScrollView>
         <View>
-          <DatosSeguimiento></DatosSeguimiento>
+          <DatosSeguimiento asesoriaSeleccionada ={asesoriaSeleccionada}
+          datos = {asesoriaSeleccionada.datos_seguimiento}></DatosSeguimiento>
         </View>
-        <View style={{ marginTop: 15 }}>
-          <Retroalimentacion></Retroalimentacion>
+        <View >
+          <Retroalimentacion asesoriaSeleccionada ={asesoriaSeleccionada}></Retroalimentacion>
         </View>
         <View>
           <IngresarPlanAlimenticio
-            style={{ marginTop: 15 }}
           ></IngresarPlanAlimenticio>
         </View>
       </ScrollView>

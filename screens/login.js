@@ -20,7 +20,6 @@ LogBox.ignoreAllLogs();
 const Login = ({ navigation }) => {
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
-  const { user, asesorias } = useSelector(selectUser, selectAsesorias);
   const dispatch = useDispatch();
 
   const getAsesorias = (user) => {

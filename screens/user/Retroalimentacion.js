@@ -7,10 +7,10 @@ import Icon from "react-native-vector-icons/Entypo";
 import { styles } from "./settings/AsesoriaSettings";
 import { useSelector } from "react-redux";
 import { selectAsesoriaSeleccionada, selectUser } from "../../src/Reducer";
-import  Axios  from "axios";
+import Axios from "axios";
 import { API } from "../../api";
 
-const Retroalimentacion = () => {
+const Retroalimentacion = ({ asesoriaSeleccionada }) => {
   const { user, selectedAsesoria } = useSelector(
     selectUser,
     selectAsesoriaSeleccionada
@@ -23,7 +23,7 @@ const Retroalimentacion = () => {
   );
 
   const [retroalimentaciones, setRetroalimentaciones] = useState(
-    selectedAsesoria[0].retroalimentaciones || []
+    asesoriaSeleccionada.retroalimentaciones || []
   );
   const [chevron, setChevron] = useState("chevron-up");
   const getHeaderElement = () => {
@@ -54,15 +54,20 @@ const Retroalimentacion = () => {
             <View
               style={{
                 flexDirection: "row",
-                padding: 15,
+                paddingBottom: 15,
               }}
             >
               <View
                 style={{
                   flexDirection: "row",
-                  flex: 0.9,
                   alignContent: "space-between",
                   width: "80%",
+                  backgroundColor: "#afd479",
+                  borderRadius: 15,
+                  borderColor: "#afd479",
+                  borderWidth: 1,
+                  padding: 10,
+                  textAlign: "center",
                 }}
               >
                 <TextField
@@ -72,20 +77,28 @@ const Retroalimentacion = () => {
                   value={retroalimentacion}
                 ></TextField>
               </View>
-              <View>
+              <View
+                style={{
+                  marginLeft: 10,
+                  backgroundColor: "#4D6924",
+                  borderRadius: 15,
+                  padding: 10,
+                }}
+              >
                 <Icon
                   name={"add-to-list"}
                   size={30}
+                  style={{ color: "white" }}
                   onPress={() => {
                     Axios.post(API + `/retroalimentaciones`, {
-                      id_asesoria: selectedAsesoria[0].id_asesoria,
+                      id_asesoria: asesoriaSeleccionada.id_asesoria,
                       retroalimentacion: retroalimentacion,
                       fecha: fecha,
                       ingresado_por: user.usuario,
                     }).then((res) => {
                       console.log(res.data);
-                      setRetroalimentaciones(res.data)
-                      setRetroalimentacion("")
+                      setRetroalimentaciones(res.data);
+                      setRetroalimentacion("");
                       // dispatch(setSelectedAsesoria(res.data));
                     });
                   }}

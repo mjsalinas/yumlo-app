@@ -81,7 +81,22 @@ const IngresarPlanAlimenticio = () => {
           </View>
 
           <Button style={styles.botonElemento}>
-            <Text>Agregar elemento al plan</Text>
+            <View
+              style={{
+                flex: 0.3,
+              }}
+            >
+              <Icon name={"add-to-list"} size={30} color={"white"} />
+            </View>
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                fontSize: 16,
+              }}
+            >
+              Agregar elemento al plan
+            </Text>
           </Button>
           <ScrollView
             vertical
@@ -133,7 +148,7 @@ const IngresarPlanAlimenticio = () => {
                 }}
               >
                 <Text style={{ fontWeight: "bold" }}> Cena</Text>
-                <Text> 130 g de Pescado y 1/3 taza de Arroz  </Text>
+                <Text> 130 g de Pescado y 1/3 taza de Arroz </Text>
               </View>
             </Card>
           </ScrollView>

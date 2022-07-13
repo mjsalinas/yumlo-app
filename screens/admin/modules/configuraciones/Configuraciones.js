@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import {
@@ -8,6 +8,7 @@ import {
   Card,
   Image,
 } from "react-native-ui-lib";
+import { ScrollView } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Entypo";
 import Axios from "axios";
 import * as ImagePicker from "expo-image-picker";
@@ -48,7 +49,8 @@ const Configuraciones = () => {
 
   useEffect(() => {
     Axios.get(API + `/configuraciones/${user.usuario}`).then((res) => {
-      setConfiguraciones(res.data);
+      setConfiguraciones(res.data.configuraciones);
+      setConfiguracionesDetalle(res.data.configuracionesDetalle);
     });
   }, [user]);
 
@@ -180,8 +182,9 @@ const Configuraciones = () => {
   };
 
   const handleOnPressAddConfiguracionDetalle = () => {
-    uploadImageAws();
-
+    if (imageIsLoaded) {
+      uploadImageAws();
+    }
     Axios.post(API + `/configuracionDetalle`, {
       id_configuracion: selectedCategory.value,
       descripcion: descripcionConfiguracionDetalle,
@@ -200,7 +203,6 @@ const Configuraciones = () => {
       secretKey: aws.secretAccessKey,
       successActionStatus: 201,
     };
-
     RNS3.put(imageFile, config).then((response) => {
       setValorConfiguracionDetalle(response.body.postResponse.location);
     });
@@ -222,12 +224,18 @@ const Configuraciones = () => {
     );
   };
   const clearFields = () => {
+    console.log("clear");
     setTituloConfiguracion("");
     setValorConfiguracion("");
+    setValorConfiguracionDetalle("");
+    setDescripcionConfiguracionDetalle("");
+    if (imageIsLoaded) {
+      unloadImage();
+    }
   };
   return (
     <ScrollView>
-        <LinearGradient
+      <LinearGradient
         // Background Linear Gradient
         colors={["#afd479", "#799f0c"]}
         style={{
@@ -256,6 +264,7 @@ const Configuraciones = () => {
               <TextField
                 migrate
                 placeholder="Titulo"
+                value={tituloConfiguracion}
                 onChangeText={(value) => setTituloConfiguracion(value)}
               />
             </View>
@@ -272,6 +281,7 @@ const Configuraciones = () => {
               <TextField
                 migrate
                 placeholder="Valor"
+                value={valorConfiguracion}
                 onChangeText={(value) => setValorConfiguracion(value)}
               />
             </View>
@@ -400,6 +410,7 @@ const Configuraciones = () => {
               <TextField
                 migrate
                 placeholder="Descripcion"
+                value={descripcionConfiguracionDetalle}
                 onChangeText={(value) =>
                   setDescripcionConfiguracionDetalle(value)
                 }
