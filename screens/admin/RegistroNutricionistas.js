@@ -24,8 +24,15 @@ const RegistroNutricionistas = ({ navigation }) => {
   const [numeroTelefono, setNumeroTelefono] = useState(null);
   const [colegiacion, setColegiacion] = useState(null);
 
+  const clearFields = () => {
+    setUsuario(null);
+    setContrasena(null);
+    setNombre(null);
+    setApellido(null);
+    setNumeroTelefono(null);
+    setColegiacion(null);
+  };
   const handleOnPressRegister = () => {
-    console.log("registerrr");
     Axios.post(API + "/usuarios", {
       rol: 1,
       usuario: usuario,
@@ -35,16 +42,18 @@ const RegistroNutricionistas = ({ navigation }) => {
       fechaNacimiento: fechaNacimientoFormato,
       telefono: numeroTelefono,
       colegiacion: colegiacion,
-    }).then((response) => {
-      if (response.status == 200) {
-        navigation.navigate("Main", { isNutricionista: true });
-      }
     })
-    .catch((error) => {
-      console.log(error.response.status);
-      console.log(error.response.data);
-      return;
-    });
+      .then((response) => {
+        if (response.status == 200) {
+          navigation.navigate("Login");
+          clearFields();
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.status);
+        console.log(error.response.data);
+        return;
+      });
   };
 
   const onChangeDatePicker = (value) => {
@@ -114,6 +123,7 @@ const RegistroNutricionistas = ({ navigation }) => {
             placeholder="Contraseña"
             style={styles.input}
             onChangeText={(value) => setContrasena(value)}
+            secureTextEntry
           />
           <TextField
             migrate
@@ -147,10 +157,10 @@ const RegistroNutricionistas = ({ navigation }) => {
               </Text>
               <MaskedInput
                 maxLength={8}
-                style={{ fontSize: 18, marginTop:10 }}
+                style={{ fontSize: 18, marginTop: 10 }}
                 placeholder={"XXXX-XXXX"}
                 keyboardType={"numeric"}
-                renderMaskedText={<Text >{numeroTelefono}</Text>}
+                renderMaskedText={<Text>{numeroTelefono}</Text>}
                 onChangeText={(value) => {
                   setNumeroTelefono(value);
                 }}
@@ -173,7 +183,10 @@ const RegistroNutricionistas = ({ navigation }) => {
         </Button>
         <Button
           style={styles.button}
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => {
+            clearFields();
+            navigation.navigate("Login");
+          }}
         >
           <Text style={{ color: "white", fontWeight: "bold" }}>Cancelar</Text>
         </Button>

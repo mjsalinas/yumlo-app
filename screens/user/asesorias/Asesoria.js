@@ -9,17 +9,8 @@ import Retroalimentacion from "../Retroalimentacion";
 import DatosSeguimiento from "../DatosSeguimiento";
 import { ScrollView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import { selectAsesoriaSeleccionada, selectUser } from "../../../src/Reducer";
-const Asesoria = () => {
-  const { user, selectedAsesoria } = useSelector(
-    selectUser,
-    selectAsesoriaSeleccionada
-  );
-
-  useEffect(() => {
-    console.log("selected asesoria:");
-    console.log(selectedAsesoria[0]);
-  });
+const Asesoria = ({route}) => {
+  const { asesoriaSeleccionada } = route.params;
 
   return (
     <View
@@ -27,7 +18,7 @@ const Asesoria = () => {
         flexDirection: "column",
         flex: 1,
         padding: 15,
-        paddingTop: 0,
+        marginTop: 25,
       }}
     >
       <StatusBar translucent />
@@ -39,26 +30,27 @@ const Asesoria = () => {
           left: 0,
           right: 0,
           top: 0,
-          height: "100%",
+          height: "110%",
         }}
       />
       <Text style={styles.mainTitle}>
-        Asesoria #{selectedAsesoria[0].id_asesoria}
+        Asesoria #{asesoriaSeleccionada.id_asesoria}
       </Text>
       <Text style={styles.titleText}>
         Dr{" "}
-        {selectedAsesoria[0].nutricionista_asignado.nombre +
+        {asesoriaSeleccionada.nutricionista_asignado.nombre +
           " " +
-          selectedAsesoria[0].nutricionista_asignado.apellido}{" "}
+          asesoriaSeleccionada.nutricionista_asignado.apellido}{" "}
         - 21/05/2022
       </Text>
 
       <ScrollView>
         <View>
-          <DatosSeguimiento></DatosSeguimiento>
+          <DatosSeguimiento asesoriaSeleccionada ={asesoriaSeleccionada}
+          datos = {asesoriaSeleccionada.datos_seguimiento}></DatosSeguimiento>
         </View>
-        <View style={{ marginTop: 15 }}>
-          <Retroalimentacion></Retroalimentacion>
+        <View >
+          <Retroalimentacion asesoriaSeleccionada ={asesoriaSeleccionada}></Retroalimentacion>
         </View>
         <View>
           <PlanAlimenticio style={{ marginTop: 15 }}></PlanAlimenticio>

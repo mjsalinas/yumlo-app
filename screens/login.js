@@ -21,6 +21,10 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
+  const clearFields = () => {
+    setUsuario(null);
+    setPassword(null);
+  };
   const getAsesorias = (user) => {
     if (user.rol == "nutricionista") {
       Axios.get(API + `/asesoriasNutri/${user.id_usuario}`).then((res) => {
@@ -73,12 +77,14 @@ const Login = ({ navigation }) => {
           navigation.navigate("Main", {
             isNutricionista: true,
           });
+          clearFields();
         } else {
           dispatch(setUser(response.data[0]));
           getAsesorias(response.data[0]);
           navigation.navigate("Main", {
             isNutricionista: false,
           });
+          clearFields();
         }
       })
       .catch((error) => {
@@ -93,7 +99,6 @@ const Login = ({ navigation }) => {
       style={{
         flexDirection: "column",
         flex: 1,
-        padding: 10,
       }}
     >
       <LinearGradient
@@ -111,7 +116,9 @@ const Login = ({ navigation }) => {
         style={{
           flexDirection: "column",
           flex: 0.3,
-          padding: 5,
+          paddingLeft: 15,
+          paddingRight: 15,
+          paddingTop: 15,
           textAlign: "center",
         }}
       >
@@ -135,19 +142,22 @@ const Login = ({ navigation }) => {
         style={{
           flexDirection: "column",
           flex: 0.3,
-          padding: 5,
+          paddingLeft: 15,
+          paddingRight: 15,
         }}
       >
         <TextField
           migrate
           placeholder="Usuario"
           style={styles.input}
+          value={usuario}
           onChangeText={(value) => setUsuario(value)}
         />
         <TextField
           migrate
           placeholder="Contraseña"
           style={styles.input}
+          value={password}
           onChangeText={(value) => setPassword(value)}
           secureTextEntry
         />
@@ -156,7 +166,7 @@ const Login = ({ navigation }) => {
         style={{
           flexDirection: "column",
           flex: 0.3,
-          padding: 5,
+          padding: 15,
         }}
       >
         <Button
@@ -169,7 +179,10 @@ const Login = ({ navigation }) => {
         </Button>
         <Button
           style={styles.button}
-          onPress={() => navigation.navigate("Registro")}
+          onPress={() => {
+            clearFields();
+            navigation.navigate("Registro");
+          }}
         >
           <Text style={{ color: "white", fontWeight: "bold" }}>
             Registrarme

@@ -29,7 +29,7 @@ const Dashboard = ({ route, navigation }) => {
           left: 0,
           right: 0,
           top: 0,
-          height: "100%",
+          height: "110%",
         }}
       />
       <View
@@ -56,7 +56,10 @@ const Dashboard = ({ route, navigation }) => {
           flex
           center
           style={styles.card}
-          onPress={() => console.log("pressed")}
+          onPress={() => {
+            navigation.navigate("Retroalimentaciones");
+
+          }}
         >
           <View
             style={{

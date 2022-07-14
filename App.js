@@ -5,7 +5,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Provider, useSelector, useDispatch } from "react-redux";
 
-import Login from "./screens/Login";
 import Registro from "./screens/Registro";
 import Dashboard from "./screens/admin/modules/dashboard/Dashboard";
 import Configuraciones from "./screens/admin/modules/configuraciones/Configuraciones";
@@ -20,6 +19,9 @@ import AsesoriasPendientes from "./screens/admin/modules/asesorias/AsesoriasPend
 import AsesoriaNutricionista from "./screens/admin/modules/asesorias/AsesoriaNutricionista";
 import Asesorias from "./screens/admin/modules/asesorias/Asesorias";
 import AsesoriasCompletas from "./screens/admin/modules/asesorias/AsesoriasCompletas";
+import Login from "./screens/login";
+import Icon from "react-native-vector-icons/Entypo";
+import Retroalimentaciones from "./screens/admin/modules/retroalimentaciones/Retroalimentaciones";
 
 const App = () => {
   let isNutricionista;
@@ -33,22 +35,26 @@ const App = () => {
     return (
       <NutricionistaStack.Navigator>
         <NutricionistaStack.Screen name={"Dashboard"} component={Dashboard} />
-        <PacienteStack.Screen
+        <NutricionistaStack.Screen
           name={"Asesorias Pendientes"}
           component={AsesoriasPendientes}
         />
-        <PacienteStack.Screen
+        <NutricionistaStack.Screen
           name={"Asesorias Totales"}
           component={Asesorias}
         />
-          <PacienteStack.Screen
+        <NutricionistaStack.Screen
           name={"Asesorias Completas"}
           component={AsesoriasCompletas}
         />
-        <PacienteStack.Screen
+        <NutricionistaStack.Screen
           name={"AsesoriaNutricionista"}
           component={AsesoriaNutricionista}
           options={{ headerShown: false }}
+        />
+          <NutricionistaStack.Screen
+          name={"Retroalimentaciones"}
+          component={Retroalimentaciones}
         />
       </NutricionistaStack.Navigator>
     );
@@ -61,34 +67,72 @@ const App = () => {
           name={"UserDashboard"}
           component={UserDashboard}
         />
-        <PacienteStack.Screen name={"Asesoria"} component={Asesoria} />
+        <PacienteStack.Screen
+          name={"Asesoria"}
+          component={Asesoria}
+          options={{ headerShown: false }}
+        />
       </PacienteStack.Navigator>
     );
   };
 
   const LoginStack = (nav) => {
     return nav.route.params.isNutricionista ? (
-      <NutricionistaTab.Navigator>
+      <NutricionistaTab.Navigator
+        screenOptions={{
+          tabBarActiveTintColor: "black",
+          tabBarInactiveTintColor: "green",
+          tabBarActiveBackgroundColor: "lightgray",
+        }}
+      >
         <NutricionistaTab.Screen
           name={"Dashboard"}
           component={NutricionistaStackScreen}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+            tabBarIcon: () => {
+              return <Icon name={"newsletter"} size={30} color={"black"} />;
+            },
+          }}
         />
         {/* <NutricionistaTab.Screen name={"Perfil"} component={Perfil} /> */}
         <NutricionistaTab.Screen
           name={"Configuraciones"}
           component={Configuraciones}
+          options={{
+            tabBarIcon: () => {
+              return <Icon name={"tools"} size={30} color={"black"} />;
+            },
+          }}
         />
       </NutricionistaTab.Navigator>
     ) : (
-      <PacienteTab.Navigator>
+      <PacienteTab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: "black",
+        tabBarInactiveTintColor: "green",
+        tabBarActiveBackgroundColor: "lightgray",
+      }}>
         <PacienteTab.Screen
           name={"UserDashboard"}
           component={PacienteStackScreen}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+            tabBarIcon: () => {
+              return <Icon name={"list"} size={30} color={"black"} />;
+            },
+          }}
         />
         {/* <PacienteTab.Screen name={"Perfil"} component={Perfil} /> */}
-        <PacienteTab.Screen name={"Pago Asesoria"} component={PagoAsesoria} />
+        <PacienteTab.Screen
+          name={"Pago Asesoria"}
+          component={PagoAsesoria}
+          options={{
+            tabBarIcon: () => {
+              return <Icon name={"credit-card"} size={30} color={"black"} />;
+            },
+          }}
+        />
       </PacienteTab.Navigator>
     );
   };

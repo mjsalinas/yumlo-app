@@ -33,7 +33,7 @@ const UserDashboard = ({ navigation }) => {
           left: 0,
           right: 0,
           top: 0,
-          height: "100%",
+          height: "110%",
         }}
       />
       <View name="header" style={styles.header}>
@@ -45,7 +45,7 @@ const UserDashboard = ({ navigation }) => {
         <ScrollView
           vertical
           showsVerticalScrollIndicator={true}
-          style={{ height: 200 }}
+          style={{ height: 220 }}
         >
           <View>
             {_.map(asesorias, (option) => (
@@ -54,12 +54,12 @@ const UserDashboard = ({ navigation }) => {
                 center
                 style={styles.card}
                 onPress={() => {
-                  Axios.get(API + `/asesoria/${option.id_asesoria}`).then((res) => {
-                    console.log(res.data)
-                  dispatch(setSelectedAsesoria(res.data));
-                  console.log(res.data)
-                  });
-                  navigation.navigate("Asesoria", { option });
+                  Axios.get(API + `/asesoria/${option.id_asesoria}`).then(
+                    (res) => {
+                      const asesoriaSeleccionada = res.data[0];
+                      navigation.navigate("Asesoria", { asesoriaSeleccionada });
+                    }
+                  );
                 }}
               >
                 <Card.Section

@@ -21,6 +21,13 @@ const RegistroPacientes = ({ navigation }) => {
   );
   const [numeroTelefono, setNumeroTelefono] = useState(null);
 
+  const clearFields = () => {
+    setUsuario(null);
+    setContrasena(null);
+    setNombre(null);
+    setApellido(null);
+    setNumeroTelefono(null);
+  };
   const handleOnPressRegister = () => {
     Axios.post(API + "/usuarios", {
       rol: 2,
@@ -32,29 +39,17 @@ const RegistroPacientes = ({ navigation }) => {
       telefono: numeroTelefono,
       colegiacion: null,
     }).then((response) => {
-      console.log(response);
+      if (response.status == 200) {
+        navigation.navigate("Login");
+        clearFields();
+      }
     });
   };
 
   const onChangeDatePicker = (value) => {
-    console.log(
-      "picker date: " + value.toISOString().slice(0, 10).replace("T", " ")
-    );
     setFechaNacimientoFormato(
       value.toISOString().slice(0, 10).replace("T", " ")
     );
-  };
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
-    hideDatePicker();
   };
 
   const styles = StyleSheet.create({
@@ -117,24 +112,29 @@ const RegistroPacientes = ({ navigation }) => {
           <TextField
             migrate
             placeholder="Usuario"
+            value={usuario}
             style={styles.input}
             onChangeText={(value) => setUsuario(value)}
           />
           <TextField
             migrate
             placeholder="Contraseña"
+            value={contrasena}
             style={styles.input}
             onChangeText={(value) => setContrasena(value)}
+            secureTextEntry
           />
           <TextField
             migrate
             placeholder="Nombre"
+            value={nombre}
             style={styles.input}
             onChangeText={(value) => setNombre(value)}
           />
           <TextField
             migrate
             placeholder="Apellido"
+            value={apellido}
             style={styles.input}
             onChangeText={(value) => setApellido(value)}
           />
@@ -158,10 +158,10 @@ const RegistroPacientes = ({ navigation }) => {
               </Text>
               <MaskedInput
                 maxLength={8}
-                style={{ fontSize: 18, marginTop:10 }}
+                style={{ fontSize: 18, marginTop: 10 }}
                 placeholder={"XXXX-XXXX"}
                 keyboardType={"numeric"}
-                renderMaskedText={<Text >{numeroTelefono}</Text>}
+                renderMaskedText={<Text>{numeroTelefono}</Text>}
                 onChangeText={(value) => {
                   setNumeroTelefono(value);
                 }}
@@ -176,7 +176,10 @@ const RegistroPacientes = ({ navigation }) => {
         </Button>
         <Button
           style={styles.button}
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => {
+            clearFields();
+            navigation.navigate("Login");
+          }}
         >
           <Text style={{ color: "white", fontWeight: "bold" }}>Cancelar</Text>
         </Button>
