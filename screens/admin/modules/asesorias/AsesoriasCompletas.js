@@ -1,25 +1,21 @@
 import _ from "lodash";
 import { View, Text } from "react-native";
-import React from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import { Card } from "react-native-ui-lib";
-import { ScrollView } from "react-native-gesture-handler";
-import {  useSelector } from "react-redux";
-import {
-  selectAsesoriasPendientes,
-  selectUser,
-} from "../../../../src/Reducer";
-import { styles } from "./AsesoriaSettings";
 import Axios from "axios";
+import React from "react";
 import { API } from "../../../../api";
+import { selectAsesoriasCompletas, selectUser } from "../../../../src/Reducer";
+import { LinearGradient } from "expo-linear-gradient";
+import { styles } from "./AsesoriaSettings";
+import { ScrollView } from "react-native-gesture-handler";
+import { Card } from "react-native-ui-lib";
+import { useSelector } from "react-redux";
 
-const AsesoriasPendientes = ({ navigation }) => {
-  const { user,  asesoriasPendientes } = useSelector(
+const AsesoriasCompletas = ({ navigation }) => {
+  const { user, asesoriasCompletas } = useSelector(
     selectUser,
-    selectAsesoriasPendientes
+    selectAsesoriasCompletas
   );
 
- 
   return (
     <View
       style={{
@@ -40,7 +36,7 @@ const AsesoriasPendientes = ({ navigation }) => {
       />
       <View name="header" style={styles.header}>
         <View>
-          <Text style={styles.mainTitle}>Asesorias Pendientes</Text>
+          <Text style={styles.mainTitle}>Asesorias Completas</Text>
         </View>
       </View>
       <View style={styles.cardContainer}>
@@ -50,16 +46,20 @@ const AsesoriasPendientes = ({ navigation }) => {
           style={{ height: 200 }}
         >
           <View>
-            {_.map(asesoriasPendientes, (option) => (
+            {_.map(asesoriasCompletas, (option) => (
               <Card
                 flex
                 center
                 style={styles.card}
                 onPress={() => {
-                  Axios.get(API + `/asesoria/${option.id_asesoria}`).then((res) => {
-                    const asesoriaSeleccionada = res.data[0];
-                    navigation.navigate("AsesoriaNutricionista", {asesoriaSeleccionada});
-                  });
+                  Axios.get(API + `/asesoria/${option.id_asesoria}`).then(
+                    (res) => {
+                      const asesoriaSeleccionada = res.data[0];
+                      navigation.navigate("AsesoriaNutricionista", {
+                        asesoriaSeleccionada,
+                      });
+                    }
+                  );
                 }}
               >
                 <Card.Section
@@ -86,4 +86,4 @@ const AsesoriasPendientes = ({ navigation }) => {
   );
 };
 
-export default AsesoriasPendientes;
+export default AsesoriasCompletas;

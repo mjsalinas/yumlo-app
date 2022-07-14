@@ -1,7 +1,8 @@
 import _ from "lodash";
 import { View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Axios from "axios";
 import Icon from "react-native-vector-icons/Entypo";
 import {
   Picker,
@@ -17,13 +18,15 @@ import {
   selectAsesoriaSeleccionada,
   selectUser,
 } from "../../../../src/Reducer";
+import { API } from "../../../../api";
 
-const IngresarPlanAlimenticio = () => {
-  const { user, selectedAsesoria } = useSelector(
-    selectUser,
-    selectAsesoriaSeleccionada
-  );
+const IngresarPlanAlimenticio = ({ asesoriaSeleccionada }) => {
+  const { user } = useSelector(selectUser);
+
   const [configuracionesDetalle, setConfiguracionesDetalle] = useState([]);
+  const [planAlimenticio, setPlanAlimenticio] = useState(
+    asesoriaSeleccionada.plan_alimenticio
+  );
   const [selectedConfiguracionDetalle, setSelectedConfiguracionDetalle] =
     useState({});
   const [selectedConfiguracionDetalleId, setSelectedConfiguracionDetalleId] =
@@ -31,6 +34,30 @@ const IngresarPlanAlimenticio = () => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [chevron, setChevron] = useState("chevron-up");
 
+  useEffect(() => {
+    Axios.get(API + `/configuraciones/${user.usuario}`).then((res) => {
+      let configuracionesDetalleCopia = res.data.configuracionesDetalle;
+      _.map(
+        configuracionesDetalleCopia,
+        (configDetalle) =>
+          (configDetalle.valorConfiguracion = res.data.configuraciones.find(
+            (configuracion) =>
+              configuracion.id_configuracion === configDetalle.id_configuracion
+          ).valor)
+      );
+      setConfiguracionesDetalle(configuracionesDetalleCopia);
+    });
+  }, []);
+
+  const handleOnPressAgregarElemento = () => {
+    Axios.post(API + `/configuracionPlanAlimenticio`, {
+      id_asesoria: asesoriaSeleccionada.id_asesoria,
+      id_configuracion_detalle: selectedConfiguracionDetalleId,
+    }).then((res) => {
+      setPlanAlimenticio(res.data);
+      clearFields();
+    });
+  };
   const getHeaderElement = () => {
     return (
       <View style={styles.expandableSection}>
@@ -47,6 +74,7 @@ const IngresarPlanAlimenticio = () => {
       setChevron("chevron-up");
     }
   };
+  const clearFields = () => {};
   return (
     <View>
       <View style={styles.expandableLayout}>
@@ -75,12 +103,18 @@ const IngresarPlanAlimenticio = () => {
               migrateTextField
             >
               {_.map(configuracionesDetalle, (option) => (
-                <Picker.Item value={option || ""} label={option || ""} />
+                <Picker.Item
+                  value={option.id_configuracion_detalle}
+                  label={option.valorConfiguracion + " - " + option.descripcion}
+                />
               ))}
             </Picker>
           </View>
 
-          <Button style={styles.botonElemento}>
+          <Button
+            style={styles.botonElemento}
+            onPress={handleOnPressAgregarElemento}
+          >
             <View
               style={{
                 flex: 0.3,
@@ -106,51 +140,29 @@ const IngresarPlanAlimenticio = () => {
               height: 200,
             }}
           >
-            <Card flex center style={styles.card}>
-              <Image
-                source={require("../../../../assets/food2.jpeg")}
-                style={styles.elementoPlan}
-              />
-              <View
-                style={{
-                  flex: 0.9,
-                  marginLeft: 10,
-                }}
-              >
-                <Text style={{ fontWeight: "bold" }}> Desayuno</Text>
-                <Text> Bowl de Avena</Text>
-              </View>
-            </Card>
-            <Card flex center style={styles.card}>
-              <Image
-                source={require("../../../../assets/food1.jpg")}
-                style={styles.elementoPlan}
-              />
-              <View
-                style={{
-                  flex: 0.9,
-                  marginLeft: 10,
-                }}
-              >
-                <Text style={{ fontWeight: "bold" }}> Almuerzo</Text>
-                <Text> 130 g de Pollo y ensalada verde</Text>
-              </View>
-            </Card>
-            <Card flex center style={styles.card}>
-              <Image
-                source={require("../../../../assets/food3.jpg")}
-                style={styles.elementoPlan}
-              />
-              <View
-                style={{
-                  flex: 0.9,
-                  marginLeft: 10,
-                }}
-              >
-                <Text style={{ fontWeight: "bold" }}> Cena</Text>
-                <Text> 130 g de Pescado y 1/3 taza de Arroz </Text>
-              </View>
-            </Card>
+            <View>
+              {_.map(planAlimenticio, (option) => (
+                <Card flex center style={styles.card}>
+                  <Image
+                    // source={option.valor}
+                    // source={require("../../../../assets/food2.jpeg")}
+                    style={styles.elementoPlan}
+                  />
+                  <View
+                    style={{
+                      flex: 0.9,
+                      marginLeft: 10,
+                    }}
+                  >
+                    <Text style={{ fontWeight: "bold" }}>
+                      {" "}
+                      * option.valorConfiguracion
+                    </Text>
+                    <Text> * option.descripcion</Text>
+                  </View>
+                </Card>
+              ))}
+            </View>
           </ScrollView>
         </ExpandableSection>
       </View>

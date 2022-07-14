@@ -6,6 +6,7 @@ export const UserSlice = createSlice({
     user: {},
     asesorias: [],
     asesoriasPendientes: [],
+    asesoriasCompletas: [],
     selectedAsesoria: [],
   },
   reducers: {
@@ -18,16 +19,26 @@ export const UserSlice = createSlice({
     setSelectedAsesoria: (state, action) => {
       state.selectedAsesoria = action.payload;
     },
-    setAsesoriasPendientes: (state, action) =>{
+    setAsesoriasPendientes: (state, action) => {
       state.asesoriasPendientes = action.payload;
-    }
+    },
+    setAsesoriasCompletas: (state, action) => {
+      state.asesoriasCompletas = action.payload;
+    },
   },
 });
 
 export const selectUser = (state) => state.user;
 export const selectAsesorias = (state) => state.asesorias;
 export const selectAsesoriasPendientes = (state) => state.asesoriasPendientes;
+export const selectAsesoriasCompletas = (state) => state.asesoriasCompletas;
 export const selectAsesoriaSeleccionada = (state) => state.selectedAsesoria;
 
-export const { setUser, setAsesorias, setAsesoriasPendientes, setSelectedAsesoria } = UserSlice.actions;
+export const {
+  setUser,
+  setAsesorias,
+  setAsesoriasPendientes,
+  setAsesoriasCompletas,
+  setSelectedAsesoria,
+} = UserSlice.actions;
 export default UserSlice.reducer;

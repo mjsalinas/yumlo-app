@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { View, Text, StyleSheet, LogBox  } from "react-native";
+import { View, Text, StyleSheet, LogBox } from "react-native";
 import { bindActionCreators } from "redux";
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -7,11 +7,10 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Image, TextField } from "react-native-ui-lib";
 import {
-  selectUser,
   setUser,
   setAsesorias,
-  selectAsesorias,
   setAsesoriasPendientes,
+  setAsesoriasCompletas,
 } from "../src/Reducer";
 import { API } from "../api";
 
@@ -29,6 +28,9 @@ const Login = ({ navigation }) => {
       });
       Axios.get(API + `/asesoriasPendientes/${user.id_usuario}`).then((res) => {
         dispatch(setAsesoriasPendientes(res.data));
+      });
+      Axios.get(API + `/asesoriasCompletas/${user.id_usuario}`).then((res) => {
+        dispatch(setAsesoriasCompletas(res.data));
       });
     } else {
       Axios.get(API + `/asesoriasPaciente/${user.id_usuario}`).then((res) => {
@@ -60,7 +62,7 @@ const Login = ({ navigation }) => {
   });
 
   const handleOnPressLogin = () => {
-    Axios.post(API +"/login", {
+    Axios.post(API + "/login", {
       usuario: usuario,
       contrasena: password,
     })
@@ -113,8 +115,10 @@ const Login = ({ navigation }) => {
           textAlign: "center",
         }}
       >
-        <Text style={{ fontSize: 30, fontWeight: "bold", color:"white"}}>Bienvenido</Text>
-        <Text style={{ fontSize: 20, color:"white" }}>Inicia Sesion</Text>
+        <Text style={{ fontSize: 30, fontWeight: "bold", color: "white" }}>
+          Bienvenido
+        </Text>
+        <Text style={{ fontSize: 20, color: "white" }}>Inicia Sesion</Text>
         <Image
           source={require("../assets/user.png")}
           style={{

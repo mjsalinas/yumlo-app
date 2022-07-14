@@ -18,6 +18,8 @@ import store from "./src/Store";
 import { selectUser } from "./src/Reducer";
 import AsesoriasPendientes from "./screens/admin/modules/asesorias/AsesoriasPendientes";
 import AsesoriaNutricionista from "./screens/admin/modules/asesorias/AsesoriaNutricionista";
+import Asesorias from "./screens/admin/modules/asesorias/Asesorias";
+import AsesoriasCompletas from "./screens/admin/modules/asesorias/AsesoriasCompletas";
 
 const App = () => {
   let isNutricionista;
@@ -34,6 +36,14 @@ const App = () => {
         <PacienteStack.Screen
           name={"Asesorias Pendientes"}
           component={AsesoriasPendientes}
+        />
+        <PacienteStack.Screen
+          name={"Asesorias Totales"}
+          component={Asesorias}
+        />
+          <PacienteStack.Screen
+          name={"Asesorias Completas"}
+          component={AsesoriasCompletas}
         />
         <PacienteStack.Screen
           name={"AsesoriaNutricionista"}

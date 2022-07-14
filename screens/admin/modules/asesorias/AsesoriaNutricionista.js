@@ -65,7 +65,7 @@ const AsesoriaNutricionista = ({ route, navigation }) => {
           <Retroalimentacion asesoriaSeleccionada ={asesoriaSeleccionada}></Retroalimentacion>
         </View>
         <View>
-          <IngresarPlanAlimenticio
+          <IngresarPlanAlimenticio  asesoriaSeleccionada ={asesoriaSeleccionada}
           ></IngresarPlanAlimenticio>
         </View>
       </ScrollView>

@@ -11,6 +11,7 @@ import { API } from "../../../../api";
 
 const Dashboard = ({ route, navigation }) => {
   const { user, asesoriasPendientes } = useSelector(selectUser, selectAsesoriasPendientes);
+  const dispatch = useDispatch();
 
   return (
     <View
@@ -87,7 +88,9 @@ const Dashboard = ({ route, navigation }) => {
         <View style={styles.cardsHolder}>
           <View style={styles.cardColumn}>
             <Card
-              onPress={() => console.log("pressed")}
+              onPress={() => {
+                navigation.navigate("Asesorias Completas");
+              }}
               center
               flex
               width="100%"
@@ -104,7 +107,9 @@ const Dashboard = ({ route, navigation }) => {
           </View>
           <View style={styles.cardColumn}>
             <Card
-              onPress={() => console.log("pressed")}
+              onPress={() => {
+                navigation.navigate("Asesorias Totales");
+              }}
               style={{
                 backgroundColor: "#b6d885",
                 shadowColor: "black",
