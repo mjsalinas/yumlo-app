@@ -110,25 +110,25 @@ const PagoAsesoria = () => {
           migrate
           placeholder="Numeros de Tarjeta"
           style={styles.input}
-          onChangeText={(value) => setUsuario(value)}
+          onChangeText={(value) => {}}
         />
         <TextField
           migrate
           placeholder="Titular de Tarjeta"
           style={styles.input}
-          onChangeText={(value) => setUsuario(value)}
+          onChangeText={(value) =>{}}
         />
         <TextField
           migrate
           placeholder="CVV"
           style={styles.input}
-          onChangeText={(value) => setUsuario(value)}
+          onChangeText={(value) => {}}
         />
         <TextField
           migrate
           placeholder="Fecha Vencimiento"
           style={styles.input}
-          onChangeText={(value) => setUsuario(value)}
+          onChangeText={(value) => {}}
         />
         <Button style={styles.button} onPress={handleOnRealizarPago}>
           <Text style={{ color: "white", fontWeight: "bold" }}>

@@ -69,7 +69,7 @@ const UserDashboard = ({ navigation }) => {
                         "Asesoria #" +
                         option.id_asesoria +
                         "\nDr." +
-                        option.id_nutricionista,
+                        option.nombre,
                       white: true,
                     },
                   ]}
